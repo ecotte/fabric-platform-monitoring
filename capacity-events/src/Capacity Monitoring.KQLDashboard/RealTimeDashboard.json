@@ -1,5 +1,5 @@
 {
-  "schema_version": 63,
+  "schema_version": 67,
   "pagesNavWidth": 184.13330078125,
   "autoRefresh": {
     "enabled": true,
@@ -1180,7 +1180,7 @@
       "scopeId": "kusto-trident",
       "clusterUri": "",
       "database": "6399f31a-13fe-9fd8-4a80-18b103b799de",
-      "name": "CapacityMonitoring",
+      "name": "Capacity Utilization",
       "id": "8a9a70d8-02b9-4236-85be-90fa83a60c8e",
       "workspace": "00000000-0000-0000-0000-000000000000"
     }
