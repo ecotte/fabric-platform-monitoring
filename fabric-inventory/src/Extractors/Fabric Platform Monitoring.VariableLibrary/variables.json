@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/variables/1.0.0/schema.json",
+  "variables": [
+    {
+      "name": "kusto_query_uri",
+      "note": "kusto_query_uri",
+      "type": "String",
+      "value": "https://trd-2ydnh4k5z751v4uran.z3.kusto.fabric.microsoft.com"
+    },
+    {
+      "name": "kusto_ingest_uri",
+      "note": "kusto_ingest_uri",
+      "type": "String",
+      "value": "https://ingest-trd-2ydnh4k5z751v4uran.z3.kusto.fabric.microsoft.com"
+    },
+    {
+      "name": "key_vault_uri",
+      "note": "key_vault_uri",
+      "type": "String",
+      "value": ""
+    },
+    {
+      "name": "key_vault_tenant_id",
+      "note": "key_vault_tenant_id",
+      "type": "String",
+      "value": ""
+    },
+    {
+      "name": "key_vault_client_id",
+      "note": "key_vault_client_id",
+      "type": "String",
+      "value": ""
+    },
+    {
+      "name": "key_vault_client_secret",
+      "note": "key_vault_client_secret",
+      "type": "String",
+      "value": ""
+    }
+  ]
+}
