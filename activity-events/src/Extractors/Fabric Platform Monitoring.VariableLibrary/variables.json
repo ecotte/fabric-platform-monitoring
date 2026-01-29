@@ -5,13 +5,13 @@
       "name": "kusto_query_uri",
       "note": "kusto_query_uri",
       "type": "String",
-      "value": "https://trd-p8yxywaw423x4naj9u.z2.kusto.fabric.microsoft.com"
+      "value": ""
     },
     {
       "name": "kusto_ingest_uri",
       "note": "kusto_ingest_uri",
       "type": "String",
-      "value": "https://ingest-trd-p8yxywaw423x4naj9u.z2.kusto.fabric.microsoft.com"
+      "value": ""
     },
     {
       "name": "key_vault_uri",
