@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Activity Events Setup"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "157530bf-cc63-bc89-4b35-b2c4f1f3cea8"
+  }
+}
