@@ -1,0 +1,48 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "SparkLens",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "x get: [NotFound] The Item 'Spark Monitoring Recommedations.Notebook' could not be found",
+          "workspaceId": "349e5afd-4917-4dac-8842-7c26ea9d69c9",
+          "parameters": {
+            "kustoUri": {
+              "value": {
+                "value": "@pipeline().parameters.KustoURIfqdn",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "database": {
+              "value": {
+                "value": "@pipeline().parameters.KQLDatabase",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "KustoURIfqdn": {
+        "type": "String",
+        "defaultValue": "https://trd-pud6x9vf2dzy0e3swu.z3.kusto.fabric.microsoft.com"
+      },
+      "KQLDatabase": {
+        "type": "string",
+        "defaultValue": "Spark Monitoring"
+      }
+    }
+  }
+}
