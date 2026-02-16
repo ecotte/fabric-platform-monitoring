@@ -2,7 +2,6 @@
 // Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
 
 
-.create-merge table RawLogsOld (timestamp:datetime, category:string, fabricLivyId:guid, applicationId:string, applicationName:string, executorId:string, userId:guid, fabricTenantId:guid, capacityId:guid, artifactType:string, artifactId:guid, fabricWorkspaceId:guid, fabricEnvId:guid, executorMin:long, executorMax:long, isHighConcurrencyEnabled:bool, properties:dynamic) with (folder = "Raw") 
 .create-merge table sparklens_metadata (applicationId:string, applicationName:string, artifactId:string, artifactType:string, capacityId:string, executorMax:long, executorMin:long, fabricEnvId:string, fabricLivyId:string, fabricTenantId:string, fabricWorkspaceId:string, isHighConcurrencyEnabled:bool, ['spark.native.enabled']:string) with (folder = "SparkLens") 
 .create-merge table sparklens_summary (stage_id:long, stage_attempt_id:long, num_tasks:long, successful_tasks:long, failed_tasks:long, min_duration_sec:real, max_duration_sec:real, avg_duration_sec:real, p75_duration_sec:real, avg_shuffle_read_mb:real, max_shuffle_read_mb:real, avg_shuffle_read_records:real, max_shuffle_read_records:long, avg_shuffle_write_mb:real, max_shuffle_write_mb:real, avg_shuffle_write_records:real, max_shuffle_write_records:long, avg_input_mb:real, max_input_mb:real, avg_input_records:real, max_input_records:long, avg_output_mb:real, max_output_mb:real, avg_output_records:real, max_output_records:long, min_launch_time:long, max_finish_time:long, num_executors:long, stage_execution_time_sec:real, app_id:string) with (folder = "SparkLens") 
 .create-merge table sparklens_metrics (app_id:string, metric:string, value:real) with (folder = "SparkLens") 
@@ -267,10 +266,18 @@ RawLogs
     P99 = toreal(records["properties"].["p99"]),
     P999 = toreal(records["properties"].["p999"])
 }
-.alter table RawLogsOld policy retention @'{"SoftDeletePeriod":"730.00:00:00","Recoverability":"Enabled"}'
-.alter table RawLogsOld policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
-.alter table RawLogs policy retention @'{"SoftDeletePeriod":"3.00:00:00","Recoverability":"Enabled"}'
+.alter table sparklens_summary policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
+.alter table sparklens_metrics policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
+.alter table sparklens_predictions policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
+.alter table sparklens_recommedations policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
+.alter table RawLogs policy retention @'{"SoftDeletePeriod":"1.00:00:00","Recoverability":"Disabled"}'
 .alter table RawLogs policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
+.alter table SparkDriverLogs policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
+.alter table SparkExecutorLogs policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
+.alter table SparkSQLExecutionEvents policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
+.alter table SparkDerivedTaskMetrics policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
+.alter table SparkMetrics policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
+.alter table SparkEventLogs policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
 .alter table SparkDriverLogs policy update "[{\"IsEnabled\":true,\"Source\":\"RawLogs\",\"Query\":\"Update_SparkDriverLogs\",\"IsTransactional\":false,\"PropagateIngestionProperties\":true,\"ManagedIdentity\":null}]"
 .alter table SparkExecutorLogs policy update "[{\"IsEnabled\":true,\"Source\":\"RawLogs\",\"Query\":\"Update_SparkExecutorLogs\",\"IsTransactional\":false,\"PropagateIngestionProperties\":true,\"ManagedIdentity\":null}]"
 .alter table SparkSQLExecutionEvents policy update "[{\"IsEnabled\":true,\"Source\":\"RawLogs\",\"Query\":\"Update_SparkSQLExecutionEvents\",\"IsTransactional\":false,\"PropagateIngestionProperties\":true,\"ManagedIdentity\":null}]"
