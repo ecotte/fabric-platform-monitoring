@@ -26,8 +26,8 @@
       "type": "Eventhouse",
       "properties": {
         "dataIngestionMode": "DirectIngestion",
-        "workspaceId": "a9ecd3ad-9412-400e-ab1a-52ac09591559",
-        "itemId": "921e7238-2de5-4a0e-968d-e5acc281f167",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "c281f167-e5ac-968d-4a0e-2de5921e7238",
         "tableName": "WorkspaceItemEventsRaw",
         "connectionName": "WorkspaceEvents",
         "mappingRuleName": "WorkspaceItemEventsRaw_mapping"
@@ -37,7 +37,8 @@
           "name": "WorkspaceItemEventsStream-stream"
         }
       ]
-    },{
+    },
+    {
       "id": "54eca8f8-61e0-4fb7-adbc-303dfba41adb",
       "name": "Customendpoint",
       "type": "CustomEndpoint",
