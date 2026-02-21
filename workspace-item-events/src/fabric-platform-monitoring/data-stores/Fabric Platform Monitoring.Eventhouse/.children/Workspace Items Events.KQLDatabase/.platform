@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDatabase",
+    "displayName": "Workspace Items Events",
+    "description": "FabricPlatformMonitoring"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c281f167-e5ac-968d-4a0e-2de5921e7238"
+  }
+}

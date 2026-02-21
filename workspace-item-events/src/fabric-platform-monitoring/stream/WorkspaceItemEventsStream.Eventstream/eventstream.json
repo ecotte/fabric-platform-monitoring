@@ -1,0 +1,46 @@
+{
+  "sources": [
+    {
+      "id": "37f422b6-fc3a-4e24-9ebf-955d89eda0b9",
+      "name": "CustomEndpoint-Source",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "54eca8f8-61e0-4fb7-adbc-303dfba41adb",
+      "name": "Customendpoint",
+      "type": "CustomEndpoint",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "WorkspaceItemEventsStream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "WorkspaceItemEventsStream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "5e527c25-d4d2-4f96-83df-ae91a39b3084",
+      "name": "WorkspaceItemEventsStream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "CustomEndpoint-Source"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

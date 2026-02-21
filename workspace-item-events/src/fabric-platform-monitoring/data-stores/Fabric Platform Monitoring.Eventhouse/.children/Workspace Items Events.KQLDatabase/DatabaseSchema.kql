@@ -1,0 +1,34 @@
+// KQL script
+// Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
+
+
+.create-merge table WorkspaceItemEventsRaw (id:guid, datacontenttype:string, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, data:dynamic) with (folder = "raw") 
+.create-or-alter table WorkspaceItemEventsRaw ingestion json mapping 'WorkspaceItemEventsRaw_mapping'
+```
+[{"Properties":{"Path":"$['id']"},"column":"id","datatype":""},{"Properties":{"Path":"$['datacontenttype']"},"column":"datacontenttype","datatype":""},{"Properties":{"Path":"$['specversion']"},"column":"specversion","datatype":""},{"Properties":{"Path":"$['source']"},"column":"source","datatype":""},{"Properties":{"Path":"$['time']"},"column":"time","datatype":""},{"Properties":{"Path":"$['subject']"},"column":"subject","datatype":""},{"Properties":{"Path":"$['dataschemaversion']"},"column":"dataschemaversion","datatype":""},{"Properties":{"Path":"$['type']"},"column":"type","datatype":""},{"Properties":{"Path":"$['data']"},"column":"data","datatype":""}]
+```
+.create-merge table WorkspaceItemsEvents (id:guid, datacontenttype:string, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, workspaceId:guid, workspaceName:string, itemId:guid, itemName:string, itemKind:string, executingPrincipalId:guid, executingPrincipalType:string) 
+.create-or-alter function with (skipvalidation = "true") parse_workspaceItemEvents() {
+     WorkspaceItemEventsRaw
+    | project
+        id,
+        datacontenttype,
+        specversion,
+        source,
+        ['time'],
+        subject,
+        dataschemaversion,
+        type,
+        workspaceId = toguid(data.workspaceId),
+        workspaceName = tostring(data.workspaceName),
+        itemId = toguid(data.itemId),
+        itemName = tostring(data.itemName),
+        itemKind = tostring(data.itemKind),
+        executingPrincipalId = toguid(data.executingPrincipalId),
+        executingPrincipalType = tostring(data.executingPrincipalType)
+ }
+.alter table WorkspaceItemEventsRaw policy retention @'{"SoftDeletePeriod":"15.00:00:00","Recoverability":"Enabled"}'
+.alter table WorkspaceItemEventsRaw policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
+.alter table WorkspaceItemsEvents policy retention @'{"SoftDeletePeriod":"730.00:00:00","Recoverability":"Enabled"}'
+.alter table WorkspaceItemsEvents policy caching hotdata = time(15.00:00:00) hotindex = time(15.00:00:00)
+.alter table WorkspaceItemsEvents policy update "[{\"IsEnabled\":true,\"Source\":\"WorkspaceItemEventsRaw\",\"Query\":\"parse_workspaceItemEvents\",\"IsTransactional\":true,\"PropagateIngestionProperties\":true,\"ManagedIdentity\":null}]"

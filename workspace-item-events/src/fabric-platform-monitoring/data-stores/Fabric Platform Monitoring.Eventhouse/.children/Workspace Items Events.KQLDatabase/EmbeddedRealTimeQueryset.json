@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "da180b9a-9003-40c0-8a24-5d0575d21d72",
+        "clusterUri": "https://trd-exactpygsdzqkg5s0m.z3.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "921e7238-2de5-4a0e-968d-e5acc281f167",
+        "databaseItemName": "Workspace Items Events"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "7db5d061-38e0-43ed-9ea6-3627fc7d3178",
+        "content": "",
+        "title": "Tab",
+        "dataSourceId": "da180b9a-9003-40c0-8a24-5d0575d21d72"
+      }
+    ]
+  }
+}
