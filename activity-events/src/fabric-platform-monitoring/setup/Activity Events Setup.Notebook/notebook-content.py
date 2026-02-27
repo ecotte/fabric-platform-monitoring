@@ -37,6 +37,7 @@
 # - The Fabric Admin API is restricted to **Fabric administrators** only.
 # - The service principal must be explicitly granted **Fabric admin rights**.
 # - The relevant **Fabric admin settings** must allow service principal access.
+# - The service principal must also be a **Member of the workspace** where the Activity Events solution is deployed.
 # 
 # 📘 Refer to the **Fabric admin settings documentation** for the authoritative configuration details.
 # 
@@ -100,6 +101,7 @@
 # This configuration ensures:
 # - ✅ Secure, non-interactive authentication
 # - ✅ Compliance with Fabric Admin API security requirements
+# - ✅ Proper workspace-level authorization
 # - ✅ No exposure of sensitive credentials
 # - ✅ Reliable, automated execution of the Activity Events process
 # 
@@ -110,6 +112,7 @@
 # Before enabling the pipeline schedule, confirm the following:
 # 
 # - ✔️ Service principal has **Fabric Admin API access**
+# - ✔️ Service principal is a **Member of the Activity Events workspace**
 # - ✔️ Azure Key Vault contains **Tenant ID, SP ID, and SP Secret**
 # - ✔️ Executing identity can **read Key Vault secrets**
 # - ✔️ Notebook variables are correctly set with **Key Vault details**
