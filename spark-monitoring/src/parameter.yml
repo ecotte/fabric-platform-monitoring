@@ -1,5 +1,5 @@
 key_value_replace:
-    - find_key: $.parameters.KustoURIfqdn.defaultValue
+    - find_key: $.properties.parameters.KustoURIfqdn.defaultValue
       replace_value:
         _ALL_: "$items.Eventhouse.Fabric Platform Monitoring.$queryserviceuri"
       item_type: "DataPipeline"
