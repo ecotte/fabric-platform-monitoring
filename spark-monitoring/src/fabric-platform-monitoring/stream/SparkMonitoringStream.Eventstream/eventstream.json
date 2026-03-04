@@ -22,7 +22,7 @@
       },
       "inputNodes": [
         {
-          "name": "SparkMonitoring-stream"
+          "name": "SparkMonitoringStream-stream"
         }
       ]
     }
@@ -30,7 +30,7 @@
   "streams": [
     {
       "id": "467e199c-a512-42ea-aac5-a00742a6fc2b",
-      "name": "SparkMonitoring-stream",
+      "name": "SparkMonitoringStream-stream",
       "type": "DefaultStream",
       "properties": {},
       "inputNodes": [
