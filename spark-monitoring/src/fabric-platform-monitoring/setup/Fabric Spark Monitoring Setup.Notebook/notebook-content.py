@@ -9,6 +9,12 @@
 # META   }
 # META }
 
+# MARKDOWN ********************
+
+# ## Vairables to Replace
+# 
+# - Add the list of environments you want to update in a structure approach in environments. It should be an array of object with the following format {"workspace_id": "<guid>", "environment_id": "<guid>"}.
+
 # CELL ********************
 
 %pip install fabric-deployment-tool --quiet
@@ -21,16 +27,10 @@
 # META   "language_group": "jupyter_python"
 # META }
 
-# MARKDOWN ********************
-
-# ## Vairables to Replace
-# 
-# - Add the list of environments you want to update in a structure approach in environments. It should be an array of object with the following format {"workspace_id": "<guid>", "environment_id": "<guid>"}.
-
 # CELL ********************
 
 environments = [
-    {"workspace_id": "", "environment_id": ""},
+    # {"workspace_id": "", "environment_id": ""},
 ]
 
 # METADATA ********************
@@ -39,10 +39,6 @@ environments = [
 # META   "language": "python",
 # META   "language_group": "jupyter_python"
 # META }
-
-# MARKDOWN ********************
-
-# ## ****Deployment
 
 # CELL ********************
 
