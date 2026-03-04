@@ -1,0 +1,6 @@
+key_value_replace:
+    - find_key: $.parameters.KustoURIfqdn.defaultValue
+      replace_value:
+        _ALL_: "PPE"
+      item_type: Pipeline
+      item_name: "Spark Recommender Pipeline"
