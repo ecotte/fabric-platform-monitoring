@@ -40,8 +40,7 @@
     ],
     "parameters": {
       "KustoURIfqdn": {
-        "type": "String",
-        "defaultValue": "https://trd-pud6x9vf2dzy0e3swu.z3.kusto.fabric.microsoft.com"
+        "type": "String"
       },
       "KQLDatabase": {
         "type": "string",
