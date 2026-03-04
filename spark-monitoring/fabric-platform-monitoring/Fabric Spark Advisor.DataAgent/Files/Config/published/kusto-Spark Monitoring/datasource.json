@@ -1,0 +1,2415 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "20348156-df56-aefb-4bc1-17bab3b339aa",
+  "workspaceId": "00000000-0000-0000-0000-000000000000",
+  "dataSourceInstructions": null,
+  "displayName": "Spark Monitoring",
+  "type": "kusto",
+  "userDescription": null,
+  "metadata": {},
+  "elements": [
+    {
+      "id": "da9674f2-9218-4596-ac0e-3970b522bbec",
+      "is_selected": true,
+      "display_name": "fabric_recommedations",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "app_id",
+          "is_selected": true,
+          "display_name": "app_id",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "recommendation",
+          "is_selected": true,
+          "display_name": "recommendation",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "ff864a97-c470-4716-b157-a7ac3747a2b3",
+      "is_selected": false,
+      "display_name": "RawLogs",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "records",
+          "is_selected": true,
+          "display_name": "records",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "231c378c-6fa4-4145-b503-4723660a97b7",
+      "is_selected": false,
+      "display_name": "SparkDerivedTaskMetrics",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "AppId",
+          "is_selected": true,
+          "display_name": "AppId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppName",
+          "is_selected": true,
+          "display_name": "AppName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityId",
+          "is_selected": true,
+          "display_name": "CapacityId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityName",
+          "is_selected": true,
+          "display_name": "CapacityName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Category",
+          "is_selected": true,
+          "display_name": "Category",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CorrelationId",
+          "is_selected": true,
+          "display_name": "CorrelationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CustomerTenantId",
+          "is_selected": true,
+          "display_name": "CustomerTenantId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "EfficiencyRatio",
+          "is_selected": true,
+          "display_name": "EfficiencyRatio",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "GcOverheadRatio",
+          "is_selected": true,
+          "display_name": "GcOverheadRatio",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Identity",
+          "is_selected": true,
+          "display_name": "Identity",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemId",
+          "is_selected": true,
+          "display_name": "ItemId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemKind",
+          "is_selected": true,
+          "display_name": "ItemKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemName",
+          "is_selected": true,
+          "display_name": "ItemName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Level",
+          "is_selected": true,
+          "display_name": "Level",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationId",
+          "is_selected": true,
+          "display_name": "OperationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationName",
+          "is_selected": true,
+          "display_name": "OperationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Region",
+          "is_selected": true,
+          "display_name": "Region",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ShuffleOverheadRatio",
+          "is_selected": true,
+          "display_name": "ShuffleOverheadRatio",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "StageId",
+          "is_selected": true,
+          "display_name": "StageId",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Status",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "TaskDurationMs",
+          "is_selected": true,
+          "display_name": "TaskDurationMs",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "TaskId",
+          "is_selected": true,
+          "display_name": "TaskId",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Timestamp",
+          "is_selected": true,
+          "display_name": "Timestamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WasSpilled",
+          "is_selected": true,
+          "display_name": "WasSpilled",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceId",
+          "is_selected": true,
+          "display_name": "WorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceMonitoringTable",
+          "is_selected": true,
+          "display_name": "WorkspaceMonitoringTable",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceName",
+          "is_selected": true,
+          "display_name": "WorkspaceName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "763f4718-6b4f-470c-a40a-e5925b5a1c56",
+      "is_selected": false,
+      "display_name": "SparkDriverLogs",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "AppId",
+          "is_selected": true,
+          "display_name": "AppId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppName",
+          "is_selected": true,
+          "display_name": "AppName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityId",
+          "is_selected": true,
+          "display_name": "CapacityId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityName",
+          "is_selected": true,
+          "display_name": "CapacityName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Category",
+          "is_selected": true,
+          "display_name": "Category",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CorrelationId",
+          "is_selected": true,
+          "display_name": "CorrelationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CustomerTenantId",
+          "is_selected": true,
+          "display_name": "CustomerTenantId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "DriverId",
+          "is_selected": true,
+          "display_name": "DriverId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Exception",
+          "is_selected": true,
+          "display_name": "Exception",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Hostname",
+          "is_selected": true,
+          "display_name": "Hostname",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Identity",
+          "is_selected": true,
+          "display_name": "Identity",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemId",
+          "is_selected": true,
+          "display_name": "ItemId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemKind",
+          "is_selected": true,
+          "display_name": "ItemKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemName",
+          "is_selected": true,
+          "display_name": "ItemName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Level",
+          "is_selected": true,
+          "display_name": "Level",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LoggerName",
+          "is_selected": true,
+          "display_name": "LoggerName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogLevel",
+          "is_selected": true,
+          "display_name": "LogLevel",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogSource",
+          "is_selected": true,
+          "display_name": "LogSource",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogTime",
+          "is_selected": true,
+          "display_name": "LogTime",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Message",
+          "is_selected": true,
+          "display_name": "Message",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationId",
+          "is_selected": true,
+          "display_name": "OperationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationName",
+          "is_selected": true,
+          "display_name": "OperationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Region",
+          "is_selected": true,
+          "display_name": "Region",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Status",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Thread",
+          "is_selected": true,
+          "display_name": "Thread",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Timestamp",
+          "is_selected": true,
+          "display_name": "Timestamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceId",
+          "is_selected": true,
+          "display_name": "WorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceMonitoringTable",
+          "is_selected": true,
+          "display_name": "WorkspaceMonitoringTable",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceName",
+          "is_selected": true,
+          "display_name": "WorkspaceName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "830c1537-5cf9-4376-9fed-68c261806c8b",
+      "is_selected": false,
+      "display_name": "SparkEventLogs",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "AppId",
+          "is_selected": true,
+          "display_name": "AppId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppName",
+          "is_selected": true,
+          "display_name": "AppName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityId",
+          "is_selected": true,
+          "display_name": "CapacityId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityName",
+          "is_selected": true,
+          "display_name": "CapacityName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Category",
+          "is_selected": true,
+          "display_name": "Category",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CorrelationId",
+          "is_selected": true,
+          "display_name": "CorrelationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CustomerTenantId",
+          "is_selected": true,
+          "display_name": "CustomerTenantId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "DurationMs",
+          "is_selected": true,
+          "display_name": "DurationMs",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "EventDetailsJson",
+          "is_selected": true,
+          "display_name": "EventDetailsJson",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "EventType",
+          "is_selected": true,
+          "display_name": "EventType",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ExecutorId",
+          "is_selected": true,
+          "display_name": "ExecutorId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "FailureReason",
+          "is_selected": true,
+          "display_name": "FailureReason",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Host",
+          "is_selected": true,
+          "display_name": "Host",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Identity",
+          "is_selected": true,
+          "display_name": "Identity",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemId",
+          "is_selected": true,
+          "display_name": "ItemId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemKind",
+          "is_selected": true,
+          "display_name": "ItemKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemName",
+          "is_selected": true,
+          "display_name": "ItemName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "JobId",
+          "is_selected": true,
+          "display_name": "JobId",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Level",
+          "is_selected": true,
+          "display_name": "Level",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogTime",
+          "is_selected": true,
+          "display_name": "LogTime",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "MetricsJson",
+          "is_selected": true,
+          "display_name": "MetricsJson",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationId",
+          "is_selected": true,
+          "display_name": "OperationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationName",
+          "is_selected": true,
+          "display_name": "OperationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "PropertiesJson",
+          "is_selected": true,
+          "display_name": "PropertiesJson",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Region",
+          "is_selected": true,
+          "display_name": "Region",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "StageAttemptId",
+          "is_selected": true,
+          "display_name": "StageAttemptId",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "StageId",
+          "is_selected": true,
+          "display_name": "StageId",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Status",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "TaskAttempt",
+          "is_selected": true,
+          "display_name": "TaskAttempt",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "TaskId",
+          "is_selected": true,
+          "display_name": "TaskId",
+          "type": "kusto.column",
+          "data_type": "System.Int32",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Timestamp",
+          "is_selected": true,
+          "display_name": "Timestamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "User",
+          "is_selected": true,
+          "display_name": "User",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceId",
+          "is_selected": true,
+          "display_name": "WorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceMonitoringTable",
+          "is_selected": true,
+          "display_name": "WorkspaceMonitoringTable",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceName",
+          "is_selected": true,
+          "display_name": "WorkspaceName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "9dcc5d98-3c26-4f61-9dc9-bb81371370f4",
+      "is_selected": false,
+      "display_name": "SparkExecutorLogs",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "AppId",
+          "is_selected": true,
+          "display_name": "AppId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppName",
+          "is_selected": true,
+          "display_name": "AppName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityId",
+          "is_selected": true,
+          "display_name": "CapacityId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityName",
+          "is_selected": true,
+          "display_name": "CapacityName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Category",
+          "is_selected": true,
+          "display_name": "Category",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CorrelationId",
+          "is_selected": true,
+          "display_name": "CorrelationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CustomerTenantId",
+          "is_selected": true,
+          "display_name": "CustomerTenantId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Exception",
+          "is_selected": true,
+          "display_name": "Exception",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ExecutorId",
+          "is_selected": true,
+          "display_name": "ExecutorId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Host",
+          "is_selected": true,
+          "display_name": "Host",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Identity",
+          "is_selected": true,
+          "display_name": "Identity",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemId",
+          "is_selected": true,
+          "display_name": "ItemId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemKind",
+          "is_selected": true,
+          "display_name": "ItemKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemName",
+          "is_selected": true,
+          "display_name": "ItemName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Level",
+          "is_selected": true,
+          "display_name": "Level",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LoggerName",
+          "is_selected": true,
+          "display_name": "LoggerName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogLevel",
+          "is_selected": true,
+          "display_name": "LogLevel",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogSource",
+          "is_selected": true,
+          "display_name": "LogSource",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "LogTime",
+          "is_selected": true,
+          "display_name": "LogTime",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Message",
+          "is_selected": true,
+          "display_name": "Message",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationId",
+          "is_selected": true,
+          "display_name": "OperationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationName",
+          "is_selected": true,
+          "display_name": "OperationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Region",
+          "is_selected": true,
+          "display_name": "Region",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "StageId",
+          "is_selected": true,
+          "display_name": "StageId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Status",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "TaskId",
+          "is_selected": true,
+          "display_name": "TaskId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Thread",
+          "is_selected": true,
+          "display_name": "Thread",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Timestamp",
+          "is_selected": true,
+          "display_name": "Timestamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceId",
+          "is_selected": true,
+          "display_name": "WorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceMonitoringTable",
+          "is_selected": true,
+          "display_name": "WorkspaceMonitoringTable",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceName",
+          "is_selected": true,
+          "display_name": "WorkspaceName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "d1dc230d-6521-4514-8cc6-70dd3612463f",
+      "is_selected": true,
+      "display_name": "sparklens_metadata",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "applicationId",
+          "is_selected": true,
+          "display_name": "applicationId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "applicationName",
+          "is_selected": true,
+          "display_name": "applicationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "artifactId",
+          "is_selected": true,
+          "display_name": "artifactId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "artifactType",
+          "is_selected": true,
+          "display_name": "artifactType",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "capacityId",
+          "is_selected": true,
+          "display_name": "capacityId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "executorMax",
+          "is_selected": true,
+          "display_name": "executorMax",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "executorMin",
+          "is_selected": true,
+          "display_name": "executorMin",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fabricEnvId",
+          "is_selected": true,
+          "display_name": "fabricEnvId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fabricLivyId",
+          "is_selected": true,
+          "display_name": "fabricLivyId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fabricTenantId",
+          "is_selected": true,
+          "display_name": "fabricTenantId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fabricWorkspaceId",
+          "is_selected": true,
+          "display_name": "fabricWorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "isHighConcurrencyEnabled",
+          "is_selected": true,
+          "display_name": "isHighConcurrencyEnabled",
+          "type": "kusto.column",
+          "data_type": "System.SByte",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "spark.native.enabled",
+          "is_selected": true,
+          "display_name": "spark.native.enabled",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "023a2803-d811-4cd9-9bc0-4e4c8ae7d6b3",
+      "is_selected": true,
+      "display_name": "sparklens_metrics",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "app_id",
+          "is_selected": true,
+          "display_name": "app_id",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "metric",
+          "is_selected": true,
+          "display_name": "metric",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "value",
+          "is_selected": true,
+          "display_name": "value",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "9277e730-e883-4417-aa90-90abfb41dfc9",
+      "is_selected": true,
+      "display_name": "sparklens_predictions",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "app_id",
+          "is_selected": true,
+          "display_name": "app_id",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Estimated Executor WallClock",
+          "is_selected": true,
+          "display_name": "Estimated Executor WallClock",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Estimated Total Duration",
+          "is_selected": true,
+          "display_name": "Estimated Total Duration",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Executor Count",
+          "is_selected": true,
+          "display_name": "Executor Count",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Executor Multiplier",
+          "is_selected": true,
+          "display_name": "Executor Multiplier",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "79a8141a-274e-4189-bb51-70ffdac9c0bc",
+      "is_selected": true,
+      "display_name": "sparklens_recommedations",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "app_id",
+          "is_selected": true,
+          "display_name": "app_id",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "recommendation",
+          "is_selected": true,
+          "display_name": "recommendation",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "c50d52b8-89fe-4916-baf5-e8ab2694e3f9",
+      "is_selected": true,
+      "display_name": "sparklens_summary",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "app_id",
+          "is_selected": true,
+          "display_name": "app_id",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_duration_sec",
+          "is_selected": true,
+          "display_name": "avg_duration_sec",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_input_mb",
+          "is_selected": true,
+          "display_name": "avg_input_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_input_records",
+          "is_selected": true,
+          "display_name": "avg_input_records",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_output_mb",
+          "is_selected": true,
+          "display_name": "avg_output_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_output_records",
+          "is_selected": true,
+          "display_name": "avg_output_records",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_shuffle_read_mb",
+          "is_selected": true,
+          "display_name": "avg_shuffle_read_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_shuffle_read_records",
+          "is_selected": true,
+          "display_name": "avg_shuffle_read_records",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_shuffle_write_mb",
+          "is_selected": true,
+          "display_name": "avg_shuffle_write_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "avg_shuffle_write_records",
+          "is_selected": true,
+          "display_name": "avg_shuffle_write_records",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "failed_tasks",
+          "is_selected": true,
+          "display_name": "failed_tasks",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_duration_sec",
+          "is_selected": true,
+          "display_name": "max_duration_sec",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_finish_time",
+          "is_selected": true,
+          "display_name": "max_finish_time",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_input_mb",
+          "is_selected": true,
+          "display_name": "max_input_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_input_records",
+          "is_selected": true,
+          "display_name": "max_input_records",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_output_mb",
+          "is_selected": true,
+          "display_name": "max_output_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_output_records",
+          "is_selected": true,
+          "display_name": "max_output_records",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_shuffle_read_mb",
+          "is_selected": true,
+          "display_name": "max_shuffle_read_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_shuffle_read_records",
+          "is_selected": true,
+          "display_name": "max_shuffle_read_records",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_shuffle_write_mb",
+          "is_selected": true,
+          "display_name": "max_shuffle_write_mb",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "max_shuffle_write_records",
+          "is_selected": true,
+          "display_name": "max_shuffle_write_records",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "min_duration_sec",
+          "is_selected": true,
+          "display_name": "min_duration_sec",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "min_launch_time",
+          "is_selected": true,
+          "display_name": "min_launch_time",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "num_executors",
+          "is_selected": true,
+          "display_name": "num_executors",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "num_tasks",
+          "is_selected": true,
+          "display_name": "num_tasks",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "p75_duration_sec",
+          "is_selected": true,
+          "display_name": "p75_duration_sec",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "stage_attempt_id",
+          "is_selected": true,
+          "display_name": "stage_attempt_id",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "stage_execution_time_sec",
+          "is_selected": true,
+          "display_name": "stage_execution_time_sec",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "stage_id",
+          "is_selected": true,
+          "display_name": "stage_id",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "successful_tasks",
+          "is_selected": true,
+          "display_name": "successful_tasks",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "3ffbd85f-1a25-402c-824c-df5400b9cf57",
+      "is_selected": false,
+      "display_name": "SparkMetrics",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "AppId",
+          "is_selected": true,
+          "display_name": "AppId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppName",
+          "is_selected": true,
+          "display_name": "AppName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityId",
+          "is_selected": true,
+          "display_name": "CapacityId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityName",
+          "is_selected": true,
+          "display_name": "CapacityName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Category",
+          "is_selected": true,
+          "display_name": "Category",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CorrelationId",
+          "is_selected": true,
+          "display_name": "CorrelationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Count",
+          "is_selected": true,
+          "display_name": "Count",
+          "type": "kusto.column",
+          "data_type": "System.Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CustomerTenantId",
+          "is_selected": true,
+          "display_name": "CustomerTenantId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "DurationUnits",
+          "is_selected": true,
+          "display_name": "DurationUnits",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ExecutorId",
+          "is_selected": true,
+          "display_name": "ExecutorId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Identity",
+          "is_selected": true,
+          "display_name": "Identity",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemId",
+          "is_selected": true,
+          "display_name": "ItemId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemKind",
+          "is_selected": true,
+          "display_name": "ItemKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemName",
+          "is_selected": true,
+          "display_name": "ItemName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Level",
+          "is_selected": true,
+          "display_name": "Level",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "M15Rate",
+          "is_selected": true,
+          "display_name": "M15Rate",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "M1Rate",
+          "is_selected": true,
+          "display_name": "M1Rate",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "M5Rate",
+          "is_selected": true,
+          "display_name": "M5Rate",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Max",
+          "is_selected": true,
+          "display_name": "Max",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Mean",
+          "is_selected": true,
+          "display_name": "Mean",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "MeanRate",
+          "is_selected": true,
+          "display_name": "MeanRate",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Metric",
+          "is_selected": true,
+          "display_name": "Metric",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "MetricType",
+          "is_selected": true,
+          "display_name": "MetricType",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Min",
+          "is_selected": true,
+          "display_name": "Min",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationId",
+          "is_selected": true,
+          "display_name": "OperationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationName",
+          "is_selected": true,
+          "display_name": "OperationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "P50",
+          "is_selected": true,
+          "display_name": "P50",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "P75",
+          "is_selected": true,
+          "display_name": "P75",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "P95",
+          "is_selected": true,
+          "display_name": "P95",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "P98",
+          "is_selected": true,
+          "display_name": "P98",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "P99",
+          "is_selected": true,
+          "display_name": "P99",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "P999",
+          "is_selected": true,
+          "display_name": "P999",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Process",
+          "is_selected": true,
+          "display_name": "Process",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "RateUnits",
+          "is_selected": true,
+          "display_name": "RateUnits",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Region",
+          "is_selected": true,
+          "display_name": "Region",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Status",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "StdDev",
+          "is_selected": true,
+          "display_name": "StdDev",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Timestamp",
+          "is_selected": true,
+          "display_name": "Timestamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Value",
+          "is_selected": true,
+          "display_name": "Value",
+          "type": "kusto.column",
+          "data_type": "System.Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceId",
+          "is_selected": true,
+          "display_name": "WorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceMonitoringTable",
+          "is_selected": true,
+          "display_name": "WorkspaceMonitoringTable",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceName",
+          "is_selected": true,
+          "display_name": "WorkspaceName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "8e0d6bb3-212e-4f82-997c-896662ce2ab2",
+      "is_selected": true,
+      "display_name": "SparkSQLExecutionEvents",
+      "type": "kusto.table",
+      "description": null,
+      "children": [
+        {
+          "id": "AppId",
+          "is_selected": true,
+          "display_name": "AppId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppKind",
+          "is_selected": true,
+          "display_name": "AppKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "AppName",
+          "is_selected": true,
+          "display_name": "AppName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityId",
+          "is_selected": true,
+          "display_name": "CapacityId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CapacityName",
+          "is_selected": true,
+          "display_name": "CapacityName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Category",
+          "is_selected": true,
+          "display_name": "Category",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CorrelationId",
+          "is_selected": true,
+          "display_name": "CorrelationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "CustomerTenantId",
+          "is_selected": true,
+          "display_name": "CustomerTenantId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "EndTime",
+          "is_selected": true,
+          "display_name": "EndTime",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "EventType",
+          "is_selected": true,
+          "display_name": "EventType",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ExecutorId",
+          "is_selected": true,
+          "display_name": "ExecutorId",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Identity",
+          "is_selected": true,
+          "display_name": "Identity",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemId",
+          "is_selected": true,
+          "display_name": "ItemId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemKind",
+          "is_selected": true,
+          "display_name": "ItemKind",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ItemName",
+          "is_selected": true,
+          "display_name": "ItemName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Level",
+          "is_selected": true,
+          "display_name": "Level",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationId",
+          "is_selected": true,
+          "display_name": "OperationId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "OperationName",
+          "is_selected": true,
+          "display_name": "OperationName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "PhysicalPlanDescription",
+          "is_selected": true,
+          "display_name": "PhysicalPlanDescription",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "PreciseTimeStamp",
+          "is_selected": true,
+          "display_name": "PreciseTimeStamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Region",
+          "is_selected": true,
+          "display_name": "Region",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Role",
+          "is_selected": true,
+          "display_name": "Role",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "RoleInstance",
+          "is_selected": true,
+          "display_name": "RoleInstance",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "SessionType",
+          "is_selected": true,
+          "display_name": "SessionType",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "SourceMoniker",
+          "is_selected": true,
+          "display_name": "SourceMoniker",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "SourceNamespace",
+          "is_selected": true,
+          "display_name": "SourceNamespace",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "SourceVersion",
+          "is_selected": true,
+          "display_name": "SourceVersion",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "SparkPlanInfo",
+          "is_selected": true,
+          "display_name": "SparkPlanInfo",
+          "type": "kusto.column",
+          "data_type": "System.Object",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "StartTime",
+          "is_selected": true,
+          "display_name": "StartTime",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Status",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "Timestamp",
+          "is_selected": true,
+          "display_name": "Timestamp",
+          "type": "kusto.column",
+          "data_type": "System.DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceId",
+          "is_selected": true,
+          "display_name": "WorkspaceId",
+          "type": "kusto.column",
+          "data_type": "System.Guid",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceMonitoringTable",
+          "is_selected": true,
+          "display_name": "WorkspaceMonitoringTable",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "WorkspaceName",
+          "is_selected": true,
+          "display_name": "WorkspaceName",
+          "type": "kusto.column",
+          "data_type": "System.String",
+          "description": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

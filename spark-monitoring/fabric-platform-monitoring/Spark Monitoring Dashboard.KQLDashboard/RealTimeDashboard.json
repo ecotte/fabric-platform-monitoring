@@ -1,5 +1,5 @@
 {
-  "schema_version": 63,
+  "schema_version": 68,
   "pagesNavWidth": 295.33332824707031,
   "tiles": [
     {
@@ -1750,7 +1750,7 @@
       "pageId": "3ef28cb0-8700-40a7-b0d7-2adfd4ac0f1a",
       "layout": {
         "x": 0,
-        "y": 26,
+        "y": 32,
         "width": 24,
         "height": 7
       },
@@ -1767,6 +1767,26 @@
         "drillthrough": [],
         "table__renderLinks": [],
         "colorRules": []
+      }
+    },
+    {
+      "id": "ab4d4016-9275-491e-8798-fdeccd858998",
+      "title": "Fabric Recommendations",
+      "visualType": "markdown",
+      "pageId": "3ef28cb0-8700-40a7-b0d7-2adfd4ac0f1a",
+      "layout": {
+        "x": 0,
+        "y": 26,
+        "width": 24,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "099ef5b4-1595-4fbc-b8f9-c7b52879728f"
+      },
+      "visualOptions": {
+        "xColumn": null,
+        "imageAllowlist": ""
       }
     }
   ],
@@ -2001,13 +2021,13 @@
   ],
   "dataSources": [
     {
-      "id": "82abfa0d-7aa4-485a-bf5a-7089d8a07a0d",
       "kind": "kusto-trident",
+      "id": "82abfa0d-7aa4-485a-bf5a-7089d8a07a0d",
+      "name": "Spark Monitoring",
       "clusterUri": "",
       "database": "20348156-df56-aefb-4bc1-17bab3b339aa",
-      "name": "Spark Monitoring",
-      "scopeId": "kusto-trident",
-      "workspace": "00000000-0000-0000-0000-000000000000"
+      "workspace": "00000000-0000-0000-0000-000000000000",
+      "scopeId": "kusto-trident"
     }
   ],
   "pages": [
@@ -2561,7 +2581,7 @@
         "kind": "inline",
         "dataSourceId": "82abfa0d-7aa4-485a-bf5a-7089d8a07a0d"
       },
-      "text": "sparklens_recommedations\n| where app_id == _applicationId\n| project-away app_id\n| project recommendation = strcat(\" - \", recommendation)\n| summarize result = strcat_array(make_list(recommendation),```\n\n```)",
+      "text": "sparklens_recommedations\n| where app_id == _applicationId\n| project-away app_id\n| project recommendation = strcat(\"\", recommendation)\n| summarize result = strcat_array(make_list(recommendation),```\n```)",
       "id": "fcd6e98b-39ab-494b-94b2-96c76afceda6",
       "usedVariables": [
         "_applicationId"
@@ -2658,6 +2678,17 @@
       },
       "text": "sparklens_summary\n| where app_id == _applicationId\n| order by toint(stage_id) asc\n",
       "id": "376e7171-35e0-45a9-8c76-3a3f51583b74",
+      "usedVariables": [
+        "_applicationId"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "82abfa0d-7aa4-485a-bf5a-7089d8a07a0d"
+      },
+      "text": "fabric_recommedations\n| where app_id == _applicationId\n| project-away app_id\n| project recommendation",
+      "id": "099ef5b4-1595-4fbc-b8f9-c7b52879728f",
       "usedVariables": [
         "_applicationId"
       ]

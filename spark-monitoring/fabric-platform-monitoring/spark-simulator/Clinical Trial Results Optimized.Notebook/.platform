@@ -1,12 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "KQLDashboard",
-    "displayName": "Spark Monitoring Dashboard",
-    "description": "Spark Monitoring Dashboard"
+    "type": "Notebook",
+    "displayName": "Clinical Trial Results Optimized"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "d544fb61-5c02-8c85-4e38-3f9a4de91a71"
+    "logicalId": "aba696be-a353-bf8c-40cc-1ba52ce3f746"
   }
 }

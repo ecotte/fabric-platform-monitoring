@@ -23,6 +23,24 @@
         "content": "",
         "title": "Tab",
         "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      },
+      {
+        "id": "d7737c01-9077-453c-a481-7d8ce36be91f",
+        "content": ".clear table sparklens_metadata data",
+        "title": "",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      },
+      {
+        "id": "29de33c1-5e04-4b11-92a9-ddbb8c4aeded",
+        "content": ".clear table sparklens_summary data",
+        "title": "",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      },
+      {
+        "id": "befa600b-1fb8-426a-bab6-31814d92312b",
+        "content": ".clear table sparklens_summary data",
+        "title": "",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
       }
     ]
   }
