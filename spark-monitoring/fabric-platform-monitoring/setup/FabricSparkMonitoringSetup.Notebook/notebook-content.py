@@ -12,6 +12,7 @@
 # CELL ********************
 
 %pip install fabric-deployment-tool --quiet
+%pip install semantic-link-labs --quiet
 
 # METADATA ********************
 
@@ -45,7 +46,19 @@ environments = [
 
 # CELL ********************
 
-fabDeploymentTool.fab_update_environments_spark_monitor(environments, workspace_name, "SparkMonitoring","IngestionEndpoint")
+import sempy_labs.environment as labs_env
+import sempy.fabric as fabric
+import fabric_deployment_tool
+
+fabDeploymentTool = fabric_deployment_tool.FabDeploymentTool()
+
+env = labs_env.list_environments()
+
+emulator_env = {"workspace_id":fabric.get_workspace_id(),"environment_id":env[env["Environment Name"] == "vasa-spark-simulator"]["Environment Id"].values[0]}
+
+environments.append(emulator_env)
+
+fabDeploymentTool.fab_update_environments_spark_monitor(environments, fabric.list_workspaces(filter=f"id eq '{fabric.get_workspace_id()}'")["Name"].values[0], "SparkMonitoringStream","IngestionEndpoint")
 
 # METADATA ********************
 

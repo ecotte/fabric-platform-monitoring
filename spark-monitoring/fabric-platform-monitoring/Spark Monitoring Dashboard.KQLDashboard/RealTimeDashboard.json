@@ -118,6 +118,8 @@
         "crossFilterDisabled": false,
         "drillthroughDisabled": false,
         "crossFilter": [],
+        "seriesColors": {},
+        "forceAxisTicks": false,
         "drillthrough": []
       }
     },
@@ -2017,6 +2019,33 @@
         ]
       },
       "allIsNull": false
+    },
+    {
+      "kind": "bool",
+      "id": "7efd4fe3-a8bf-483d-bba4-76322e746903",
+      "displayName": "Autoscale Billing for Spark",
+      "description": "",
+      "variableName": "AutoscaleBillingforSpark",
+      "selectionType": "scalar",
+      "includeAllOption": false,
+      "defaultValue": {
+        "kind": "value",
+        "value": false
+      },
+      "dataSource": {
+        "kind": "static",
+        "values": [
+          {
+            "value": true
+          },
+          {
+            "value": false
+          }
+        ]
+      },
+      "showOnPages": {
+        "kind": "all"
+      }
     }
   ],
   "dataSources": [
@@ -2076,9 +2105,10 @@
         "kind": "inline",
         "dataSourceId": "82abfa0d-7aa4-485a-bf5a-7089d8a07a0d"
       },
-      "text": "let _capacity = _maxCapacityCU * 2 * 3;\nlet _timespan = timespan(30s);\nlet vCore = materialize (\nRawLogs\n| where todatetime(records[\"timestamp\"]) > ago(5d)\n| where tostring(records[\"category\"]) == \"EventLog\"\n| where isnotempty(records.[\"properties\"].[\"Executor Info\"].[\"Total Cores\"])\n| where tostring(records.[\"properties\"].[\"Event\"]) == \"SparkListenerExecutorAdded\"\n| extend vCores = toint(records.[\"properties\"].[\"Executor Info\"].[\"Total Cores\"])\n| summarize VcorePerExec=max(vCores) by applicationId=tostring(records[\"applicationId\"])\n);\nlet app_time = RawLogs\n| where  isnotempty(tostring(records[\"applicationId\"]))\n| distinct applicationId=tostring(records[\"applicationId\"]), timestamp=todatetime(records[\"timestamp\"]), executorId=tostring(records.[\"executorId\"]) , capacityId=tostring(records.[\"capacityId\"]);\napp_time\n| where applicationId in (vCore | project applicationId)\n| summarize  Executors=count_distinct(executorId)  by  bin(timestamp,_timespan), applicationId, capacityId\n| lookup vCore on applicationId\n| extend vCore = VcorePerExec*Executors\n| make-series vCores = sum(vCore), Max=_capacity default = \"\" on timestamp step _timespan by capacityId\n| extend ['Max vCore'] = series_fill_forward(Max)",
+      "text": "let _capacity = _maxCapacityCU * 2 * iff(AutoscaleBillingforSpark,1,3);\nlet _timespan = timespan(30s);\nlet vCore = materialize (\nRawLogs\n| where todatetime(records[\"timestamp\"]) > ago(5d)\n| where tostring(records[\"category\"]) == \"EventLog\"\n| where isnotempty(records.[\"properties\"].[\"Executor Info\"].[\"Total Cores\"])\n| where tostring(records.[\"properties\"].[\"Event\"]) == \"SparkListenerExecutorAdded\"\n| extend vCores = toint(records.[\"properties\"].[\"Executor Info\"].[\"Total Cores\"])\n| summarize VcorePerExec=max(vCores) by applicationId=tostring(records[\"applicationId\"])\n);\nlet app_time = RawLogs\n| where  isnotempty(tostring(records[\"applicationId\"]))\n| distinct applicationId=tostring(records[\"applicationId\"]), timestamp=todatetime(records[\"timestamp\"]), executorId=tostring(records.[\"executorId\"]) , capacityId=tostring(records.[\"capacityId\"]);\napp_time\n| where applicationId in (vCore | project applicationId)\n| summarize  Executors=count_distinct(executorId)  by  bin(timestamp,_timespan), applicationId, capacityId\n| lookup vCore on applicationId\n| extend vCore = VcorePerExec*Executors\n| make-series vCores = sum(vCore), Max=_capacity default = \"\" on timestamp step _timespan by capacityId\n| extend ['Max vCore'] = series_fill_forward(Max)",
       "id": "38953f0f-1c7e-4d10-bc2a-3014e024849e",
       "usedVariables": [
+        "AutoscaleBillingforSpark",
         "_maxCapacityCU"
       ]
     },
