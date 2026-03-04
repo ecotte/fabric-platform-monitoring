@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Environment",
+    "displayName": "vasa-spark-simulator",
+    "description": "Environment"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "214695a4-2304-89ee-4d06-ed439a7fda4e"
+  }
+}

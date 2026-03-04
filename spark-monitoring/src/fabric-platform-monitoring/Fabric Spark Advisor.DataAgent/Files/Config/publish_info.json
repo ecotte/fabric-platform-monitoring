@@ -1,0 +1,4 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/publishInfo/1.0.0/schema.json",
+  "description": "This agent provides intelligent analysis of Apache Spark workloads running on Microsoft Fabric and Azure Synapse. It reads structured telemetry produced by the `spark_monitoring_analyzer` pipeline — stored in Azure Data Explorer (Kusto) — and translates raw metrics into actionable findings for data engineers and platform operators.\n\nThe agent answers questions about individual job runs, compares performance across runs, recommends configuration changes, and explains scaling trade-offs. It does not modify any data or infrastructure — it is a read-only analytical assistant."
+}

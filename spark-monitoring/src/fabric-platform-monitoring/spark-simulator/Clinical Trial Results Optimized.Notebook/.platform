@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Clinical Trial Results Optimized"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "aba696be-a353-bf8c-40cc-1ba52ce3f746"
+  }
+}

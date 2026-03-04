@@ -1,0 +1,47 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "0c2b24ea-e5a6-4ff8-9760-c23d5cb16d56",
+        "clusterUri": "https://trd-70eqys55xv9uvxyttq.z0.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "1a4258e0-e906-44d5-857e-8f2a71df6484",
+        "databaseItemName": "1a4258e0-e906-44d5-857e-8f2a71df6484"
+      },
+      {
+        "id": "ce9dd755-1466-47e9-b506-e8b1e247694a",
+        "clusterUri": "https://trd-pud6x9vf2dzy0e3swu.z3.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "b3b339aa-17ba-4bc1-aefb-df5620348156",
+        "databaseItemName": "Spark Monitoring"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "6e34d028-cfb0-479b-bcc5-25ea42de7011",
+        "content": "",
+        "title": "Tab",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      },
+      {
+        "id": "d7737c01-9077-453c-a481-7d8ce36be91f",
+        "content": ".clear table sparklens_metadata data",
+        "title": "",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      },
+      {
+        "id": "29de33c1-5e04-4b11-92a9-ddbb8c4aeded",
+        "content": ".clear table sparklens_summary data",
+        "title": "",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      },
+      {
+        "id": "befa600b-1fb8-426a-bab6-31814d92312b",
+        "content": ".clear table sparklens_summary data",
+        "title": "",
+        "dataSourceId": "ce9dd755-1466-47e9-b506-e8b1e247694a"
+      }
+    ]
+  }
+}
