@@ -40,7 +40,8 @@
     ],
     "parameters": {
       "KustoURIfqdn": {
-        "type": "String"
+        "type": "String",
+        "defaultValue": "kqlUri"
       },
       "KQLDatabase": {
         "type": "string",
