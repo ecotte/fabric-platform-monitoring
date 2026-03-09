@@ -14,18 +14,22 @@
 # META   }
 # META }
 
-# CELL ********************
+# MARKDOWN ********************
 
 # ─────────────────────────────────────────────────────────────
-#  DEMO: Clinical Trial Results Pipeline  ── BAD PRACTICES
-#  Bad practices packed in:
+#  ## DEMO: Clinical Trial Results Pipeline  ── BAD PRACTICES
+#  #### Bad practices packed in:
 #    1. No caching  → same DF recomputed 4 times
 #    2. Python UDFs → serialization overhead on every row
 #    3. Excessive repartitioning → 4 unnecessary shuffles
 #    4. Collect to driver → 5M rows pulled to driver memory
 #    5. groupByKey on RDD → full shuffle with no local combine
 #    6. SELECT * on wide table → reads all 40 cols, uses 3
+#    
 # ─────────────────────────────────────────────────────────────
+
+# CELL ********************
+
 from pyspark.sql import functions as F
 from pyspark.sql.types import StringType, DoubleType
 from datetime import datetime

@@ -14,6 +14,20 @@
 # META   }
 # META }
 
+# MARKDOWN ********************
+
+# ─────────────────────────────────────────────────────────────
+#  ## DEMO: Clinical Trial Results Pipeline  ── OPTIMIZED
+#  #### Fixes applied:
+#    1. Cache once  → zero recomputation
+#    2. F.when()    → no Python serialization
+#    3. Select only needed columns upfront
+#    4. Single repartition on join key
+#    5. DataFrame groupBy().agg() → local combine + shuffle
+#    6. count() only — no driver collect
+#    
+# ─────────────────────────────────────────────────────────────
+
 # CELL ********************
 
 # ── 8 Fabric best-practice configs tracked by Spark Monitoring Analyzer ───────
