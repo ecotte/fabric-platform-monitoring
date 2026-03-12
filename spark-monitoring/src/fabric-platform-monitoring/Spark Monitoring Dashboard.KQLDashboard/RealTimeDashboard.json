@@ -1,5 +1,5 @@
 {
-  "schema_version": 68,
+  "schema_version": 69,
   "pagesNavWidth": 295.33332824707031,
   "tiles": [
     {
@@ -117,9 +117,9 @@
         "verticalLine": "",
         "crossFilterDisabled": false,
         "drillthroughDisabled": false,
-        "crossFilter": [],
         "seriesColors": {},
         "forceAxisTicks": false,
+        "crossFilter": [],
         "drillthrough": []
       }
     },
@@ -2556,7 +2556,7 @@
         "kind": "inline",
         "dataSourceId": "82abfa0d-7aa4-485a-bf5a-7089d8a07a0d"
       },
-      "text": "sparklens_metrics\n| where app_id == _applicationId\n| project-away app_id",
+      "text": "let _jobType = toscalar(\n    sparklens_metrics\n    | where app_id == _applicationId\n    | where metric == 'Job Type'\n    | project value\n);\nsparklens_metrics\n| where app_id == _applicationId\n| where iff(\n    _jobType == 0,\n    metric in (\n        'Application Duration (sec)',\n        'Executor Wall Clock Time (sec)',\n        'Total Executor Time (sec)',\n        'Driver Wall Clock Time (sec)',\n        'Driver Time %',\n        'Executor Time %',\n        'Executor Count'\n    ),\n    metric in (\n        'Streaming: Median Batch Duration (ms)',\n        'Streaming: Processing/Trigger Ratio',\n        'Streaming: Worst Outlier Duration (ms)',\n        'Streaming: Worst Outlier Batch ID',\n        'Streaming: P95/Median Ratio',\n        'Streaming: Batch Duration CV',\n        'Streaming: Max State Memory (KB)',\n        'Streaming: Max State Rows',\n        'Streaming: State Growth Ratio',\n        'Streaming: State Drained',\n        'Streaming: Outlier Batch Pct',\n        'Streaming: Outlier Batch Count'\n    )\n)\n| project-away app_id",
       "id": "80f9abe6-5b0d-465f-b4c6-e171ebe9a730",
       "usedVariables": [
         "_applicationId"
