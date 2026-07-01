@@ -17,6 +17,14 @@
         {
           "name": "CapacityEvents-stream"
         }
+      ],
+      "inputSchemas": [
+        {
+          "name": "CapacityEvents-stream",
+          "schema": {
+            "columns": []
+          }
+        }
       ]
     },
     {
@@ -34,6 +42,14 @@
       "inputNodes": [
         {
           "name": "CapacityEvents-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "CapacityEvents-stream",
+          "schema": {
+            "columns": []
+          }
         }
       ]
     }
