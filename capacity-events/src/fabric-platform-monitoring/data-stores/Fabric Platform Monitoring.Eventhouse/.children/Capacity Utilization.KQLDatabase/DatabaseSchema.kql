@@ -7,16 +7,18 @@
 ```
 [{"Properties":{"Path":"$['specversion']"},"column":"specversion","datatype":""},{"Properties":{"Path":"$['source']"},"column":"source","datatype":""},{"Properties":{"Path":"$['time']"},"column":"time","datatype":""},{"Properties":{"Path":"$['id']"},"column":"id","datatype":""},{"Properties":{"Path":"$['subject']"},"column":"subject","datatype":""},{"Properties":{"Path":"$['dataschemaversion']"},"column":"dataschemaversion","datatype":""},{"Properties":{"Path":"$['type']"},"column":"type","datatype":""},{"Properties":{"Path":"$['data']"},"column":"data","datatype":""}]
 ```
-.create-merge table CapacitySummary (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacitySku:string, capacityRegion:string, windowStartTime:datetime, windowEndTime:datetime, baseCapacityUnits:long, timepointCapacityUnits:long, capacityUnitMs:real, capacityUnitSecond:real, interactiveDelayThresholdPercentage:real, interactiveRejectionThresholdPercentage:real, backgroundRejectionThresholdPercentage:real, overageTotalCapacityUnitMs:real, overageAddCapacityUnitMs:real, overageBurndownCapacityUnitMs:real, utilizationBackground:real, utilizationInteractive:real, utilizationBackgroundPreview:real, utilizationInteractivePreview:real, processedOverageCapacityUnitsMs:real, capacityUnitUtilizationBreakdown:dynamic, overageBillingLimitCapacityUnitsMs:real) 
+.create-merge table CapacitySummary (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacityFriendlyName:string, capacitySku:string, capacityRegion:string, windowStartTime:datetime, windowEndTime:datetime, baseCapacityUnits:long, timepointCapacityUnits:long, capacityUnitMs:real, capacityUnitSecond:real, interactiveDelayThresholdPercentage:real, interactiveRejectionThresholdPercentage:real, backgroundRejectionThresholdPercentage:real, overageTotalCapacityUnitMs:real, overageAddCapacityUnitMs:real, overageBurndownCapacityUnitMs:real, utilizationBackground:real, utilizationInteractive:real, utilizationBackgroundPreview:real, utilizationInteractivePreview:real, processedOverageCapacityUnitsMs:real, capacityUnitUtilizationBreakdown:dynamic, overageBillingLimitCapacityUnitsMs:real, activationId:guid) 
 .create-merge table CapacityState (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacitySku:string, capacityRegion:string, transitionTime:datetime, capacityState:string, stateChangeReason:string) 
 .create-merge table CapacityWorkloadSummary (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacitySku:string, capacityRegion:string, windowStartTime:datetime, windowEndTime:datetime, baseCapacityUnits:long, workloadKind:string, interactiveCU:real, backgroundCU:real, interactivePreviewCU:real, backgroundPreviewCU:real) 
+.create-merge table CapacityOperation (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, subscriptionId:guid, capacityId:guid, capacityName:string, capacityFriendlyName:string, capacitySku:string, activationId:guid, workspaceId:guid, workspaceName:string, itemId:guid, itemName:string, itemKind:string, capacityUnitMs:long, durationMs:long, throttlingDelayMs:long, operationId:string, status:string, operationStartTime:datetime, releaseType:string, operationName:string, utilizationType:string, windowStartTime:datetime, windowEndTime:datetime, isVirtualWorkspaceName:bool, isVirtualArtifactName:bool, workloadAutoscaleCapacityUnitsLimit:long, workspaceDomain:string, workspaceDomainId:string, workspaceParentDomain:string, workspaceParentDomainId:string, consumptionStartTime:datetime, identityType:string, identityValue:string) 
 .create-or-alter function with (folder = "UpdatePolicyFunctions", skipvalidation = "true") parse_CapacityEventsSummary() {
-     CapacityEventsRaw
+    CapacityEventsRaw
     | where ["type"] == "Microsoft.Fabric.Capacity.Summary"
     | extend
         tenantId=toguid(data.tenantId),
         capacityId=toguid(data.capacityId),
         capacityName=tostring(data.capacityName),
+        capacityFriendlyName=tostring(data.capacityFriendlyName),
         capacitySku=tostring(data.capacitySku),
         capacityRegion=tostring(data.capacityRegion),
         windowEndTime=todatetime(data.windowEndTime),
@@ -35,7 +37,8 @@
         utilizationInteractivePreview=toreal(data.utilizationInteractivePreview),
         processedOverageCapacityUnitsMs=toreal(data.processedOverageCapacityUnitsMs),
         capacityUnitUtilizationBreakdown=data.capacityUnitUtilizationBreakdown,
-        overageBillingLimitCapacityUnitsMs=toreal(data.overageBillingLimitCapacityUnitsMs)
+        overageBillingLimitCapacityUnitsMs=toreal(data.overageBillingLimitCapacityUnitsMs),
+        activationId = toguid(data.activationId)
     | extend
         timepointCapacityUnits = baseCapacityUnits * 30,
         capacityUnitSecond=capacityUnitMs / 1000.0
@@ -50,6 +53,7 @@
         tenantId,
         capacityId,
         capacityName,
+        capacityFriendlyName,
         capacitySku,
         capacityRegion,
         windowStartTime,
@@ -70,8 +74,9 @@
         utilizationInteractivePreview,
         processedOverageCapacityUnitsMs,
         capacityUnitUtilizationBreakdown,
-        overageBillingLimitCapacityUnitsMs
- }
+        overageBillingLimitCapacityUnitsMs,
+        activationId
+}
 .create-or-alter function with (folder = "UpdatePolicyFunctions", skipvalidation = "true") parse_CapacityEventsState() {
      CapacityEventsRaw
     | where ["type"] == "Microsoft.Fabric.Capacity.State"
@@ -138,12 +143,316 @@
         interactivePreviewCU = iff(isempty(cuBreakdown.UtilizationPreview.Interactive), 0.0, todouble(cuBreakdown.UtilizationPreview.Interactive)),
         backgroundPreviewCU = iff(isempty(cuBreakdown.UtilizationPreview.Background), 0.0, todouble(cuBreakdown.UtilizationPreview.Background))
  }
-.alter table CapacityEventsRaw policy retention @'{"SoftDeletePeriod":"01:00:00","Recoverability":"Disabled"}'
+.create-or-alter function with (folder = "UpdatePolicyFunctions", skipvalidation = "true") parse_CapacityEventsOperation() {
+    CapacityEventsRaw
+| where ["type"] == "Microsoft.Fabric.CapacityOperationEvents.Operation"
+| extend
+    subscriptionId=toguid(data.subscriptionId),
+    capacityId=toguid(data.capacityId),
+    capacityName=tostring(data.capacityName),
+    capacityFriendlyName=tostring(data.capacityFriendlyName),
+    capacitySku=tostring(data.capacitySku),
+    activationId=toguid(data.activationId),
+    workspaceId=toguid(data.workspaceId),
+    workspaceName=tostring(data.workspaceName),
+    itemId=toguid(data.itemId),
+    itemName=tostring(data.itemName),
+    itemKind=tostring(data.itemKind),
+    capacityUnitMs=tolong(data.capacityUnitMs),
+    durationMs=tolong(data.durationMs),
+    throttlingDelayMs=tolong(data.throttlingDelayMs),
+    operationId= tostring(data.operationId),
+    status=tostring(data.status),
+    operationStartTime=todatetime(data.operationStartTime),
+    releaseType=tostring(data.releaseType),
+    operationName=tostring(data.operationName),
+    utilizationType=tostring(data.utilizationType),
+    windowStartTime=todatetime(data.windowStartTime),
+    windowEndTime=todatetime(data.windowEndTime),
+    isVirtualArtifactName=tobool(data.isVirtualArtifactName),
+    isVirtualWorkspaceName=tobool(data.isVirtualWorkspaceName),
+    workloadAutoscaleCapacityUnitsLimit=tolong(data.workloadAutoscaleCapacityUnitsLimit),
+    workspaceDomain=tostring(data.workspaceDomain),
+    workspaceDomainId=tostring(data.workspaceDomainId),
+    workspaceParentDomain=tostring(data.workspaceParentDomain),
+    workspaceParentDomainId=tostring(data.workspaceParentDomainId),
+    consumptionStartTime = todatetime(data.consumptionStartTime),
+    identityType = tostring(data.identityType),
+    identityValue = tostring(data.identityValue)
+| project
+    id,
+    specversion,
+    source,
+    ['time'],
+    subject,
+    dataschemaversion,
+    type,
+    subscriptionId,
+    capacityId,
+    capacityName,
+    capacityFriendlyName,
+    capacitySku,
+    activationId,
+    workspaceId,
+    workspaceName,
+    itemId,
+    itemName,
+    itemKind,
+    capacityUnitMs,
+    durationMs,
+    throttlingDelayMs,
+    operationId,
+    status,
+    operationStartTime,
+    releaseType,
+    operationName,
+    utilizationType,
+    windowStartTime,
+    windowEndTime,
+    isVirtualWorkspaceName,
+    isVirtualArtifactName,
+    workloadAutoscaleCapacityUnitsLimit,
+    workspaceDomain,
+    workspaceDomainId,
+    workspaceParentDomain,
+    workspaceParentDomainId,
+    consumptionStartTime,
+    identityType,
+    identityValue
+}
+.create-or-alter function with (skipvalidation = "true") TimepointConsumption(Timepoint:datetime, Capacity:string="", Workspace:string="", Item:string="", ItemKind:string="", AddWorkspace:bool=true, AddItem:bool=true, AddOperation:bool=true, AddIdentity:bool=true, AddPreview:bool=false) {
+    let _workspaces = iff(not(AddWorkspace), dynamic(['Workspace Name', 'Workspace Id']), dynamic([""]));
+     let _items = iff(not(AddItem), dynamic(['Item Name', 'Item Id', 'Item Kind']), dynamic([""]));
+     let _operations = iff(not(AddOperation), dynamic(['Operation Name']), dynamic([""]));
+     let _identity = iff(not(AddIdentity), dynamic(['Identity Type','Identity Value']), dynamic([""]));
+     let _preview = iff(AddPreview,dynamic(['Public','Preview']),dynamic(['Public']));
+     let _timepoint = bin(Timepoint,30s);
+     let _summary = CapacitySummary
+        | where isempty(Capacity) or capacityId == Capacity or capacityFriendlyName == Capacity
+        | where windowStartTime == _timepoint
+        | project
+            ['Capacity Id']=capacityId,
+            ['Total Consumed Timepoint CU']=capacityUnitSecond,
+            ['Capacity Timepoint CU']=timepointCapacityUnits;
+     CapacityOperation
+    | where isempty(Capacity) or capacityId == Capacity or capacityFriendlyName == Capacity
+    | where isempty(Workspace) or workspaceId == Workspace or workspaceName == Workspace
+    | where isempty(Item) or itemId == Item or itemName == Item
+    | where isempty(ItemKind) or itemKind == ItemKind
+    | where windowStartTime <= _timepoint and windowEndTime > _timepoint
+    | where isempty(workloadAutoscaleCapacityUnitsLimit) or workloadAutoscaleCapacityUnitsLimit == 0
+    | where releaseType in (_preview)
+    | project
+        ['Capacity Name'] = capacityFriendlyName,
+        ['Capacity Id'] = capacityId,
+        ['Capacity Sku'] =capacitySku,
+        ['Workspace Name'] = workspaceName,
+        ['Workspace Id'] = workspaceId,
+        ['CU´s'] = capacityUnitMs / 1000.0,
+        ['Item Name'] = itemName,
+        ['Item Id'] = itemId,
+        ['Item Kind'] = itemKind,
+        ['Operation Name'] = operationName,
+        ['Window Start Time'] = windowStartTime,
+        ['Window End Time'] = windowEndTime,
+        ['Timepoints'] = (windowEndTime - windowStartTime) / 30s,
+        ['Timepoint CU'] = (capacityUnitMs / 1000.0) / ((windowEndTime - windowStartTime) / 30s),
+        ['Utilization Type']=utilizationType,
+        ['Releast Type']=releaseType,
+        ['Operation Start Time']=operationStartTime,
+        ['Identity Type']=identityType,
+        ['Identity Value']=identityValue
+    | project
+        ['Capacity Name'],
+        ['Capacity Id'],
+        ['Capacity Sku'],
+        ['CU´s'],
+        Timepoints,
+        ['Timepoint CU'],
+        ['Utilization Type'],
+        ['Releast Type'],
+        ['Window End Time'],
+        ['Window Start Time'],
+        ['Operation Start Time'],
+        columns=bag_pack_columns(
+            ['Workspace Name'],
+            ['Workspace Id'],
+            ['Item Name'],
+            ['Item Id'],
+            ['Item Kind'],
+            ['Operation Name'],
+            ['Identity Type'],
+            ['Identity Value']
+        )
+    | extend columns=bag_remove_keys(columns, _items)
+    | extend columns=bag_remove_keys(columns, _workspaces)
+    | extend columns=bag_remove_keys(columns, _operations)
+    | extend columns=bag_remove_keys(columns, _identity)
+    | evaluate bag_unpack(columns)
+    | summarize
+        ['Last Operation Window Start Time']=max(['Window Start Time']),
+        ['Last Operation Window End Time']=max(['Window End Time']),
+        ['Operation Start Time']=min(['Operation Start Time']),
+        ['Consumed Timepoint CU']=sum(['Timepoint CU'])
+        by
+        ['Capacity Name'],
+        ['Capacity Id'],
+        ['Capacity Sku'],
+        ['Workspace Name']=column_ifexists("Workspace Name", ""),
+        ['Workspace Id']=column_ifexists("Workspace Id", ""),
+        ['Item Kind']=column_ifexists("Item Kind", ""),
+        ['Item Name']=column_ifexists("Item Name", ""),
+        ['Item Id']=column_ifexists('Item Id', ""),
+        ['Operation Name']=column_ifexists('Operation Name', ""),
+        ['Identity Type']=column_ifexists('Identity Type', ""),
+        ['Identity Value']=column_ifexists('Identity Value', ""),
+        ['Releast Type']
+    | lookup _summary on ['Capacity Id']
+    | extend
+        ['% of Capacity'] = round(100 * ['Consumed Timepoint CU'] / ['Capacity Timepoint CU'], 2),
+        ['% Total Capacity Util']=round(100 * ['Total Consumed Timepoint CU'] / ['Capacity Timepoint CU'], 2)
+}
+.create-or-alter function with (skipvalidation = "true") TimepointFutureConsumption(Capacity:string, Timepoint:datetime) {
+    let _selectedTimeWindow = bin(Timepoint,30s);
+     let _endOfSelectedTimeWindow = _selectedTimeWindow + 1d;
+     let _summaryInfoOnSelectedTimeWindow =
+        CapacitySummary
+        | where capacityId == Capacity or capacityFriendlyName == Capacity
+        | where windowEndTime == _selectedTimeWindow 
+        | project
+            windowStartTime=windowStartTime,
+            windowEndTime,
+            capacityId,
+            capacitySku,
+            baseCapacityUnits,
+            timepointCapacityUnits,
+            capacityUnitMs,
+            overageTotalCapacityUnitMs,
+            overageBurndownCapacityUnitMs,
+            overageAddCapacityUnitMs,
+            interactiveDelayThresholdPercentage,
+            interactiveRejectionThresholdPercentage,
+            backgroundRejectionThresholdPercentage;
+     let _summarisedOperationsWithinWindow =
+        CapacityOperation
+        | where windowStartTime <= _selectedTimeWindow and windowEndTime > _selectedTimeWindow
+        | where capacityId == Capacity or capacityFriendlyName == Capacity
+        | where isempty(workloadAutoscaleCapacityUnitsLimit) or workloadAutoscaleCapacityUnitsLimit == 0
+        | where releaseType == "Public"
+        | summarize TotalCU = sum(capacityUnitMs)
+            by
+            windowStartTime,
+            windowEndTime,
+            capacityId,
+            utilizationType,
+            capacityFriendlyName,
+            releaseType
+        | extend 
+            countOf30SecondWindowsInRange = (windowEndTime - windowStartTime) / 30s,
+            windowsToSmoothOver = range(windowStartTime, windowEndTime - 30s, 30s)
+        | extend CUPerWindow = TotalCU / countOf30SecondWindowsInRange
+        | project
+            capacityId,
+            utilizationType,
+            windowsToSmoothOver,
+            CUPerWindow,
+            capacityFriendlyName,
+            releaseType
+        | mv-expand windowsToSmoothOver
+        | extend WindowStartTime = todatetime(windowsToSmoothOver)
+        | where WindowStartTime between (_selectedTimeWindow .. _endOfSelectedTimeWindow)
+        | summarize
+            totalCuSec=sum(CUPerWindow) / 1000,
+            totalBackgroundCuSec = sumif(CUPerWindow, utilizationType == "Background" and releaseType == "Public") / 1000,
+            totalInteractiveCuSec = sumif(CUPerWindow, utilizationType == "Interactive" and releaseType == "Public") / 1000,
+            totalBackgroundPreviewCuSec = sumif(CUPerWindow, utilizationType == "Background" and releaseType == "Preview") / 1000,
+            totalInteractivePreviewCuSec = sumif(CUPerWindow, utilizationType == "Interactive" and releaseType == "Preview") / 1000
+            by WindowStartTime, capacityId, capacityFriendlyName
+        | lookup (_summaryInfoOnSelectedTimeWindow
+            | project capacityId, timepointCapacityUnits, overageTotalCapacityUnitMs)
+            on capacityId
+        | project
+            capacityId,
+            windowTime=WindowStartTime,
+            timepointCapacityUnits,
+            overageTotalCapacityUnitMs=iff(WindowStartTime == _selectedTimeWindow, overageTotalCapacityUnitMs / 1000, 0.0),
+            totalInteractiveCuSec,
+            totalBackgroundCuSec,
+            totalInteractivePreviewCuSec,
+            totalBackgroundPreviewCuSec,
+            capacityFriendlyName,
+            totalCuSec
+        | extend
+            overageAddCapacityUnitsMs = iff((totalCuSec - timepointCapacityUnits) > 0, (totalCuSec - timepointCapacityUnits), 0.0),
+            overageBurndownCapacityUnitsMs = abs(iff((totalCuSec - timepointCapacityUnits) < 0, (totalCuSec - timepointCapacityUnits), 0.0))
+        | extend overageTotalCapacityUnitsMs = iff(overageAddCapacityUnitsMs > 0, overageTotalCapacityUnitMs + overageAddCapacityUnitsMs, overageTotalCapacityUnitMs - overageBurndownCapacityUnitsMs)
+        | serialize
+        | extend overageTotalCapacityUnitsMs = iff(row_cumsum(overageTotalCapacityUnitsMs) > 0, row_cumsum(overageTotalCapacityUnitsMs), 0.0);
+     _summarisedOperationsWithinWindow
+    | project
+        ["Window Time"]=windowTime,
+        ["Capacity Id"] = capacityId,
+        ["Capacity Name"] = capacityFriendlyName,
+        ["Timepoint Capacity Units"] = timepointCapacityUnits,
+        ["Total Capacity CU´s"]=totalCuSec,
+        ["Total Interactive Capacity CU´s"]=totalInteractiveCuSec,
+        ["Total Background Capacity CU´s"]=totalBackgroundCuSec,
+        ["Total Interactive Preview Capacity CU´s"]=totalInteractivePreviewCuSec,
+        ["Total Background Preview Capacity CU´s"]=totalBackgroundPreviewCuSec,
+        ["% of Capacity Units"] = 100 * totalCuSec / iff(isempty(timepointCapacityUnits),0, timepointCapacityUnits),
+        ["% of Interactive Capacity Units"] = 100 * totalInteractiveCuSec / iff(isempty(timepointCapacityUnits),0, timepointCapacityUnits),
+        ["% of Background Capacity Units"] = 100 * totalBackgroundCuSec / iff(isempty(timepointCapacityUnits),0, timepointCapacityUnits),
+        ["% of Interactive Preview Capacity Units"] = 100 * totalInteractivePreviewCuSec / iff(isempty(timepointCapacityUnits),0, timepointCapacityUnits),
+        ["% of Background Preview Capacity Units"] = 100 * totalBackgroundPreviewCuSec / iff(isempty(timepointCapacityUnits),0, timepointCapacityUnits),
+        ["% of Overage Capacity Units"] = 100 * overageTotalCapacityUnitsMs / iff(isempty(timepointCapacityUnits),0, timepointCapacityUnits),
+        ["Capacity Limit"] = 100
+}
+.create-or-alter materialized-view  CapacityUtilizationHour on table CapacityOperation { CapacityOperation
+| project ['Capacity Id']=capacityId,
+    ['Capacity Name'] = capacityFriendlyName,
+    ['Workspace Id'] = workspaceId,
+    ['Workspace Name'] = workspaceName,
+    ['Item Id'] = itemId,
+    ['Item Name'] = itemName,
+    ['Item Kind'] = itemKind,
+    ['Operation Name'] = operationName,
+    ['Identity Type'] = identityType,
+    ['Identity Value'] = identityValue,
+    ['Utilization Type'] = utilizationType,
+    ['Release Type'] = releaseType,
+    ['CU´ms'] = capacityUnitMs,
+    windowStartTime,
+    windowEndTime,
+    timepoints = (windowEndTime - windowStartTime) / 30s, 
+    ['Date UTC'] = range(bin(windowStartTime, 1h), bin(windowEndTime,1h), 1h),
+    workloadAutoscaleCapacityUnitsLimit
+| where isempty( workloadAutoscaleCapacityUnitsLimit) or workloadAutoscaleCapacityUnitsLimit == 0
+| mv-expand ['Date UTC'] to typeof(datetime)
+| extend usedTimepoints =  (min_of(windowEndTime, (['Date UTC'] + 1h)) - max_of(windowStartTime, ['Date UTC'])) / 30s
+| extend ['Timepoint CU (ms)'] = usedTimepoints*(['CU´ms']/timepoints/1000.0)
+| summarize ['CU'] = sum(['Timepoint CU (ms)']) by 
+    ['Capacity Id'],
+    ['Capacity Name'],
+    ['Workspace Id'],
+    ['Workspace Name'],
+    ['Item Id'],
+    ['Item Name'],
+    ['Item Kind'],
+    ['Operation Name'],
+    ['Identity Type'],
+    ['Identity Value'],
+    ['Utilization Type'],
+    ['Release Type'],
+    ['Date UTC'] }
+.alter table CapacityEventsRaw policy retention @'{"SoftDeletePeriod":"1.00:00:00","Recoverability":"Disabled"}'
 .alter table CapacityEventsRaw policy caching hotdata = time(1.00:00:00) hotindex = time(1.00:00:00)
 .alter table CapacitySummary policy retention @'{"SoftDeletePeriod":"730.00:00:00","Recoverability":"Disabled"}'
 .alter table CapacitySummary policy caching hotdata = time(90.00:00:00) hotindex = time(90.00:00:00)
 .alter table CapacityState policy retention @'{"SoftDeletePeriod":"730.00:00:00","Recoverability":"Disabled"}'
 .alter table CapacityState policy caching hotdata = time(90.00:00:00) hotindex = time(90.00:00:00)
+.alter table CapacityWorkloadSummary policy retention @'{"SoftDeletePeriod":"7300.00:00:00","Recoverability":"Enabled"}'
+.alter table CapacityWorkloadSummary policy caching hotdata = time(90.00:00:00) hotindex = time(90.00:00:00)
 .alter table CapacitySummary policy update "[{\"IsEnabled\":true,\"Source\":\"CapacityEventsRaw\",\"Query\":\"parse_CapacityEventsSummary()\",\"IsTransactional\":true,\"PropagateIngestionProperties\":false,\"ManagedIdentity\":null}]"
 .alter table CapacityState policy update "[{\"IsEnabled\":true,\"Source\":\"CapacityEventsRaw\",\"Query\":\"parse_CapacityEventsState()\",\"IsTransactional\":true,\"PropagateIngestionProperties\":false,\"ManagedIdentity\":null}]"
 .alter table CapacityWorkloadSummary policy update "[{\"IsEnabled\":true,\"Source\":\"CapacityEventsRaw\",\"Query\":\"parse_CapacityEventsWorkloadSummary()\",\"IsTransactional\":true,\"PropagateIngestionProperties\":true,\"ManagedIdentity\":null}]"
+.alter table CapacityOperation policy update "[{\"IsEnabled\":true,\"Source\":\"CapacityEventsRaw\",\"Query\":\"parse_CapacityEventsOperation()\",\"IsTransactional\":true,\"PropagateIngestionProperties\":false,\"ManagedIdentity\":null}]"

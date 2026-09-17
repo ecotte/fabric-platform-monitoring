@@ -5,7 +5,7 @@
 # META {
 # META   "kernel_info": {
 # META     "name": "jupyter",
-# META     "jupyter_kernel_name": "python3.11"
+# META     "jupyter_kernel_name": "python3.12"
 # META   },
 # META   "dependencies": {}
 # META }
@@ -78,7 +78,7 @@
 
 # CELL ********************
 
-%pip install fabric-deployment-tool --quiet
+%pip install ms-fabric-cli==1.6.1 --quiet
 
 # METADATA ********************
 
@@ -90,14 +90,155 @@
 # CELL ********************
 
 from sempy import fabric
-import fabric_deployment_tool
+import subprocess
+import json
+import shutil
+import uuid
 
 workspace_id = fabric.get_notebook_workspace_id()
 workspace_name = fabric.list_workspaces(filter=f"id eq '{workspace_id}'").at[0,'Name']
 
-fabDeploymentTool = fabric_deployment_tool.FabDeploymentTool()
+# METADATA ********************
 
-fabDeploymentTool.update_capcity_events_eventstream(workspace_name)
+# META {
+# META   "language": "python",
+# META   "language_group": "jupyter_python"
+# META }
+
+# CELL ********************
+
+def run_fab_command(
+    command,
+    capture_output: bool = False,
+    silently_continue: bool = False,
+    raw_output: bool = False,
+):
+    result = subprocess.run(
+        ["fab", "-c", command], capture_output=capture_output, text=True
+    )
+    if not (silently_continue) and (result.returncode > 0 or result.stderr):
+        raise Exception(
+            f"Error running fab command. exit_code: '{result.returncode}'; stderr: '{result}'"
+        )
+    if capture_output and not raw_output:
+        output = result.stdout.strip()
+        return output
+    elif capture_output and raw_output:
+        return result
+
+def update_capcity_events_eventstream(workspace, item_name="CapacityEvents"):
+    tmp_path = "./builtin/tmp/export/"
+
+    shutil.rmtree(tmp_path, ignore_errors=True)
+
+    os.makedirs(os.path.dirname(tmp_path), exist_ok=True)
+
+    run_fab_command(
+        f"export  /{workspace}.Workspace/{item_name}.Eventstream -o {tmp_path} -f ",
+        silently_continue=True,
+    )
+
+    property_file = f"{tmp_path}{item_name}.Eventstream/eventstream.json"
+
+    new_sources = []
+    new_input_nodes = []
+
+    dfCapacities = fabric.list_capacities()
+    dfCapacities = dfCapacities.query("Sku != 'PP3'")
+
+    with open(property_file, "r", encoding="utf-8") as file:
+        content = json.load(file)
+        sources = content.get("sources", [])
+        for index, row in dfCapacities.iterrows():
+            capacity_id = row["Id"]
+            name = row["Display Name"]
+            sku = row["Sku"]
+            name = f"{name.replace(' ','')}-{sku}"
+            name = name.replace("_", "")
+            ## Overview Events
+            filtered_data = list(
+                filter(
+                    lambda table: 
+                        table.get("properties", {}).get("capacityId") == capacity_id 
+                        and table.get("type") == "FabricCapacityOverviewEvents",
+                    sources,
+                )
+            )
+            if len(filtered_data) > 0:
+                new_source = filtered_data.pop()
+                new_input_node = {"name": new_source.get("name")}
+            else:
+                new_source = {
+                    "id": str(uuid.uuid4()),
+                    "name": name,
+                    "type": "FabricCapacityOverviewEvents",
+                    "properties": {
+                        "eventScope": "Capacity",
+                        "capacityId": capacity_id,
+                        "includedEventTypes": [
+                            "Microsoft.Fabric.Capacity.State",
+                            "Microsoft.Fabric.Capacity.Summary",
+                        ],
+                        "filters": [],
+                    },
+                }
+                new_input_node = {"name": name}
+            new_sources.append(new_source)
+            new_input_nodes.append(new_input_node)
+            ## Operation Events
+            filtered_data = list(
+                filter(
+                    lambda table: 
+                        table.get("properties", {}).get("capacityId") == capacity_id 
+                        and table.get("type") == "FabricCapacityOperationEvents",
+                    sources,
+                )
+            )
+            if len(filtered_data) > 0:
+                new_source = filtered_data.pop()
+                new_input_node = {"name": new_source.get("name")}
+            else:
+                new_source = {
+                    "id": str(uuid.uuid4()),
+                    "name": f"{name}-operation",
+                    "type": "FabricCapacityOperationEvents",
+                    "properties": {
+                        "eventScope": "Capacity",
+                        "capacityId": capacity_id,
+                        "includedEventTypes": [
+                            "Microsoft.Fabric.CapacityOperationEvents.Operation"
+                        ],
+                        "filters": [],
+                    },
+                }
+                new_input_node = {"name": name}
+            new_sources.append(new_source)
+            new_input_nodes.append(new_input_node)
+
+        content["sources"] = new_sources
+
+        for stream in content["streams"]:
+            if stream["type"] == "DefaultStream":
+                stream["inputNodes"] = new_input_nodes
+
+    with open(property_file, "w", encoding="utf-8") as file:
+        json.dump(content, file, indent=4)
+
+    run_fab_command(
+        f"import  /{workspace}.Workspace/{item_name}.Eventstream -i {tmp_path}/{item_name}.Eventstream -f ",
+        silently_continue=True,
+    )
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "jupyter_python"
+# META }
+
+# CELL ********************
+
+update_capcity_events_eventstream(workspace_name)
 
 # METADATA ********************
 
