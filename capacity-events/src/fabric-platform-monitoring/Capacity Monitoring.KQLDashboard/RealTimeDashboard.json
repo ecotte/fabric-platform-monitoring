@@ -1732,7 +1732,7 @@
   "dataSources": [
     {
       "kind": "kusto-trident",
-      "name": "CapacityMonitoring",
+      "name": "Capacity Utilization",
       "clusterUri": "",
       "databaseArtifactId": "1b4190e3-61f8-474f-b11d-dabd9526b47c",
       "database": "9526b47c-dabd-b11d-474f-61f81b4190e3",
