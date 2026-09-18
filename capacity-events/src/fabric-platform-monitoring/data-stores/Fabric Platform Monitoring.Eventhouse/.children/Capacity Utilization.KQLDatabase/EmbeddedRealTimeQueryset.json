@@ -7,14 +7,20 @@
         "clusterUri": "https://trd-0bfayhgp3y6gm0v992.z0.kusto.fabric.microsoft.com",
         "type": "Fabric",
         "databaseItemId": "1b4190e3-61f8-474f-b11d-dabd9526b47c"
+      },
+      {
+        "id": "5ea9db35-3eb3-49ad-a7b0-87237ece8a08",
+        "clusterUri": "https://trd-6pdnx8e01mhd2xanqc.z5.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "a9b83572-e3ac-44ac-ab6d-2f7979eeb982"
       }
     ],
     "tabs": [
       {
         "id": "af708b2f-e389-4ab5-9d06-ff7a1d3a2257",
-        "content": "",
+        "content": "CapacityOperation\n| take 10",
         "title": "Tab",
-        "dataSourceId": "d57c148b-f5fe-4e07-a7b3-6a2eed76608d"
+        "dataSourceId": "5ea9db35-3eb3-49ad-a7b0-87237ece8a08"
       }
     ],
     "querysetType": "Embedded"
