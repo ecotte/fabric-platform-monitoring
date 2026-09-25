@@ -1,5 +1,5 @@
 {
-  "schema_version": 78,
+  "schema_version": 84,
   "pagesNavWidth": 184.13330078125,
   "autoRefresh": {
     "enabled": true,
@@ -1017,6 +1017,8 @@
         "drillthroughDisabled": false,
         "anomalyColumns": [],
         "crossFilter": [],
+        "seriesColors": {},
+        "forceAxisTicks": false,
         "drillthrough": []
       }
     },
@@ -2048,7 +2050,7 @@
         "kind": "inline",
         "dataSourceId": "8a9a70d8-02b9-4236-85be-90fa83a60c8e"
       },
-      "text": "TimepointConsumption(\n    Timepoint=bin(_endTime-30s,30s),\n    Capacity=_capacities,\n    Workspace=_workspaceNameExact,\n    AddWorkspace=true,\n    AddItem=true,\n    AddOperation=true,\n    AddPreview=true\n)\n| lookup _capacityBase on $left.['Capacity Id']== $right.CapacityId\n| project ['Capacity Name']=CapacityName, Sku, ['Item Name'], ['Item Id'], ['Item Kind'], ['Operation Name'], ['Releast Type'],['Consumed Timepoint CU']=round(['Consumed Timepoint CU']), ['% of Capacity']\n| order by ['% of Capacity']",
+      "text": "TimepointConsumption(\n    Timepoint=bin(_endTime-30s,30s),\n    Capacity=_capacities,\n    Workspace=_workspaceNameExact,\n    AddWorkspace=true,\n    AddItem=true,\n    AddOperation=true,\n    AddPreview=true,\n    AddIdentity=false\n)\n| lookup _capacityBase on $left.['Capacity Id']== $right.CapacityId\n| project ['Capacity Name']=CapacityName, Sku, ['Item Name'], ['Item Id'], ['Item Kind'], ['Operation Name'], ['Releast Type'],['Consumed Timepoint CU']=round(['Consumed Timepoint CU']), ['% of Capacity']\n| order by ['% of Capacity']",
       "id": "6ee89cea-4e34-4548-b435-630a25c5d5b2",
       "usedVariables": [
         "_capacities",
@@ -2062,7 +2064,7 @@
         "kind": "inline",
         "dataSourceId": "8a9a70d8-02b9-4236-85be-90fa83a60c8e"
       },
-      "text": "TimepointConsumption(\n    Timepoint=bin(_endTime-30s,30s),\n    Capacity= _capacities,\n    AddWorkspace=true,\n    AddItem=false,\n    AddOperation=false,\n    AddPreview=false\n)\n| lookup _capacityBase on $left.['Capacity Id']== $right.CapacityId\n| project ['Capacity Name']=CapacityName, Sku, ['Workspace Name'],['Workspace Id'], ['Consumed Timepoint CU']=round(['Consumed Timepoint CU'],2), ['% of Capacity']=round(['% of Capacity'],2)\n| order by ['% of Capacity']\n\n",
+      "text": "TimepointConsumption(\n    Timepoint=bin(_endTime-30s,30s),\n    Capacity= _capacities,\n    AddWorkspace=true,\n    AddItem=false,\n    AddOperation=false,\n    AddPreview=false,\n    AddIdentity=false\n)\n| lookup _capacityBase on $left.['Capacity Id']== $right.CapacityId\n| project ['Capacity Name']=CapacityName, Sku, ['Workspace Name'],['Workspace Id'], ['Consumed Timepoint CU']=round(['Consumed Timepoint CU'],2), ['% of Capacity']=round(['% of Capacity'],2)\n| order by ['% of Capacity']\n\n",
       "id": "4b3f9ab3-7d80-41be-8663-2e2b41bee68c",
       "usedVariables": [
         "_capacities",

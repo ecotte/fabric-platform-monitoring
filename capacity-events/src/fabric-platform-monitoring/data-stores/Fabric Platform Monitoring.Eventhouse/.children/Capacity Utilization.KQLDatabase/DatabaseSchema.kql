@@ -9,7 +9,7 @@
 ```
 .create-merge table CapacitySummary (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacityFriendlyName:string, capacitySku:string, capacityRegion:string, windowStartTime:datetime, windowEndTime:datetime, baseCapacityUnits:long, timepointCapacityUnits:long, capacityUnitMs:real, capacityUnitSecond:real, interactiveDelayThresholdPercentage:real, interactiveRejectionThresholdPercentage:real, backgroundRejectionThresholdPercentage:real, overageTotalCapacityUnitMs:real, overageAddCapacityUnitMs:real, overageBurndownCapacityUnitMs:real, utilizationBackground:real, utilizationInteractive:real, utilizationBackgroundPreview:real, utilizationInteractivePreview:real, processedOverageCapacityUnitsMs:real, capacityUnitUtilizationBreakdown:dynamic, overageBillingLimitCapacityUnitsMs:real, activationId:guid) 
 .create-merge table CapacityState (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacitySku:string, capacityRegion:string, transitionTime:datetime, capacityState:string, stateChangeReason:string) 
-.create-merge table CapacityWorkloadSummary (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacitySku:string, capacityRegion:string, windowStartTime:datetime, windowEndTime:datetime, baseCapacityUnits:long, workloadKind:string, interactiveCU:real, backgroundCU:real, interactivePreviewCU:real, backgroundPreviewCU:real) 
+.create-merge table CapacityWorkloadSummary (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, tenantId:guid, capacityId:guid, capacityName:string, capacityFriendlyName:string, capacitySku:string, capacityRegion:string, windowStartTime:datetime, windowEndTime:datetime, baseCapacityUnits:long, workloadKind:string, interactiveCU:real, backgroundCU:real, interactivePreviewCU:real, backgroundPreviewCU:real) 
 .create-merge table CapacityOperation (id:guid, specversion:real, source:guid, ['time']:datetime, subject:string, dataschemaversion:real, type:string, subscriptionId:guid, capacityId:guid, capacityName:string, capacityFriendlyName:string, capacitySku:string, activationId:guid, workspaceId:guid, workspaceName:string, itemId:guid, itemName:string, itemKind:string, capacityUnitMs:long, durationMs:long, throttlingDelayMs:long, operationId:string, status:string, operationStartTime:datetime, releaseType:string, operationName:string, utilizationType:string, windowStartTime:datetime, windowEndTime:datetime, isVirtualWorkspaceName:bool, isVirtualArtifactName:bool, workloadAutoscaleCapacityUnitsLimit:long, workspaceDomain:string, workspaceDomainId:string, workspaceParentDomain:string, workspaceParentDomainId:string, consumptionStartTime:datetime, identityType:string, identityValue:string) 
 .create-or-alter function with (folder = "UpdatePolicyFunctions", skipvalidation = "true") parse_CapacityEventsSummary() {
     CapacityEventsRaw
@@ -107,13 +107,14 @@
         stateChangeReason
  }
 .create-or-alter function with (folder = "UpdatePolicyFunctions", skipvalidation = "true") parse_CapacityEventsWorkloadSummary() {
-     CapacityEventsRaw
+    CapacityEventsRaw
     | where ["type"] == "Microsoft.Fabric.Capacity.Summary"
     | where isnotempty(data.capacityUnitUtilizationBreakdown)
     | extend
         tenantId=toguid(data.tenantId),
         capacityId=toguid(data.capacityId),
         capacityName=tostring(data.capacityName),
+        capacityFriendlyName=tostring(data.capacityFriendlyName),
         capacitySku=tostring(data.capacitySku),
         capacityRegion=tostring(data.capacityRegion),
         windowEndTime=todatetime(data.windowEndTime),
@@ -132,6 +133,7 @@
         tenantId,
         capacityId,
         capacityName,
+        capacityFriendlyName,
         capacitySku,
         capacityRegion,
         windowStartTime,
@@ -142,7 +144,7 @@
         backgroundCU = iff(isempty(cuBreakdown.Utilization.Background), 0.0, todouble(cuBreakdown.Utilization.Background)),
         interactivePreviewCU = iff(isempty(cuBreakdown.UtilizationPreview.Interactive), 0.0, todouble(cuBreakdown.UtilizationPreview.Interactive)),
         backgroundPreviewCU = iff(isempty(cuBreakdown.UtilizationPreview.Background), 0.0, todouble(cuBreakdown.UtilizationPreview.Background))
- }
+}
 .create-or-alter function with (folder = "UpdatePolicyFunctions", skipvalidation = "true") parse_CapacityEventsOperation() {
     CapacityEventsRaw
 | where ["type"] == "Microsoft.Fabric.CapacityOperationEvents.Operation"
