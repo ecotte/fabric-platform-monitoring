@@ -1,5 +1,5 @@
 {
-  "schema_version": 84,
+  "schema_version": 86,
   "pagesNavWidth": 184.13330078125,
   "autoRefresh": {
     "enabled": true,
@@ -1016,9 +1016,9 @@
         "crossFilterDisabled": false,
         "drillthroughDisabled": false,
         "anomalyColumns": [],
-        "crossFilter": [],
         "seriesColors": {},
         "forceAxisTicks": false,
+        "crossFilter": [],
         "drillthrough": []
       }
     },
@@ -1736,7 +1736,7 @@
       "kind": "kusto-trident",
       "name": "Capacity Utilization",
       "clusterUri": "",
-      "databaseArtifactId": "1b4190e3-61f8-474f-b11d-dabd9526b47c",
+      "databaseArtifactId": "a9b83572-e3ac-44ac-ab6d-2f7979eeb982",
       "database": "9526b47c-dabd-b11d-474f-61f81b4190e3",
       "workspace": "00000000-0000-0000-0000-000000000000",
       "id": "8a9a70d8-02b9-4236-85be-90fa83a60c8e"
