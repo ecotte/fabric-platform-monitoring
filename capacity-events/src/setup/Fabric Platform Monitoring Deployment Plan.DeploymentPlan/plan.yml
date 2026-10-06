@@ -1,0 +1,26 @@
+$schema: https://developer.microsoft.com/json-schemas/fabric/item/deploymentPlan/definition/plan/1.0.0/schema.json
+version: 1.0.0
+groups:
+  - name: Fabric Platform Monitoring_KustoEventHouse
+    logicalId: a93e92ae-90f2-805c-4659-99e1e4a9c07f
+  - name: CapacityEvents_EventStream
+    logicalId: 8d8ac6fc-fbb6-888b-4ab0-362ba98aef93
+    postActions:
+      - name: Capacity Events Update Eventstream_Pipeline
+        job:
+          type: Execute
+          logicalId: ae615169-2722-90c4-48e0-a4316ffaeb15
+    dependsOn:
+      - groupName: Capacity Events Update Eventstream_Pipeline
+  - name: Capacity Monitoring_KustoDashboard
+    logicalId: 90a49765-0fa3-bc0d-4b11-8fe43152f843
+    dependsOn:
+      - groupName: CapacityEvents_EventStream
+  - name: Capacity Events Update Eventstream_SynapseNotebook
+    logicalId: 3925071d-b1aa-9038-4911-fb077e202efb
+    dependsOn:
+      - groupName: Fabric Platform Monitoring_KustoEventHouse
+  - name: Capacity Events Update Eventstream_Pipeline
+    logicalId: ae615169-2722-90c4-48e0-a4316ffaeb15
+    dependsOn:
+      - groupName: Capacity Events Update Eventstream_SynapseNotebook
