@@ -1,8 +1,8 @@
 {
   "sources": [
     {
-      "id": "e2b1c9d4-8f3a-4b6e-9c7a-1d2e3f4a5b6c",
-      "name": "TenantWorkspaceEvents",
+      "id": "4ec3e2de-c27d-4829-85d1-a6adea95154e",
+      "name": "TenantWorkspaceItemEvents",
       "type": "FabricWorkspaceItemEvents",
       "properties": {
         "eventScope": "Tenant",
@@ -36,6 +36,14 @@
         {
           "name": "WorkspaceItemEventsStream-stream"
         }
+      ],
+      "inputSchemas": [
+        {
+          "name": "WorkspaceItemEventsStream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
       ]
     },
     {
@@ -66,7 +74,7 @@
       "properties": {},
       "inputNodes": [
         {
-          "name": "TenantWorkspaceEvents"
+          "name": "TenantWorkspaceItemEvents"
         }
       ]
     }
