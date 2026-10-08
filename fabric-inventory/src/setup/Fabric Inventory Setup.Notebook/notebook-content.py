@@ -10,17 +10,6 @@
 # META   "dependencies": {}
 # META }
 
-# CELL ********************
-
-%pip install semantic-link-labs==0.13.2 --quiet
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "jupyter_python"
-# META }
-
 # MARKDOWN ********************
 
 # # ✅ Prerequisites for Fabric Inventory & Fabric Admin API
@@ -120,6 +109,17 @@
 # 
 # 🚀 Once completed, the Fabric Inventory process will run automatically as scheduled.
 
+
+# CELL ********************
+
+%pip install semantic-link-labs==0.13.2 --quiet
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "jupyter_python"
+# META }
 
 # CELL ********************
 
