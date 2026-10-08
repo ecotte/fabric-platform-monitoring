@@ -5,20 +5,9 @@
 # META {
 # META   "kernel_info": {
 # META     "name": "jupyter",
-# META     "jupyter_kernel_name": "python3.11"
+# META     "jupyter_kernel_name": "python3.12"
 # META   },
 # META   "dependencies": {}
-# META }
-
-# CELL ********************
-
-%pip install ms-fabric-cli --quiet
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "jupyter_python"
 # META }
 
 # MARKDOWN ********************
@@ -135,6 +124,17 @@
 
 # CELL ********************
 
+%pip install ms-fabric-cli --quiet
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "jupyter_python"
+# META }
+
+# CELL ********************
+
 HeartbeatEnable = True
 HeartbeatInterval = 1
 ReportSendInterval = 5
@@ -228,8 +228,14 @@ report_id = fab_get_id(report_eventstream)
 heartbeat_conn_id = json.loads(run_fab_command(f"api workspaces/{workspace_id}/eventstreams/{heartbeat_id}/topology" , capture_output = True, silently_continue= True)).get("text",{}).get("sources",[])[0].get('id')
 report_conn_id = json.loads(run_fab_command(f"api workspaces/{workspace_id}/eventstreams/{report_id}/topology" , capture_output = True, silently_continue= True)).get("text",{}).get("sources",[])[0].get('id')
 
-heartbeat_connection = json.loads(run_fab_command(f"api workspaces/{workspace_id}/eventstreams/{heartbeat_id}/sources/{heartbeat_conn_id}/connection" , capture_output = True, silently_continue= True)).get("text",{}).get('accessKeys',{}).get('primaryConnectionString')
-report_connection = json.loads(run_fab_command(f"api workspaces/{workspace_id}/eventstreams/{report_id}/sources/{report_conn_id}/connection" , capture_output = True, silently_continue= True)).get("text",{}).get('accessKeys',{}).get('primaryConnectionString')
+heartbeat_topology = json.loads(run_fab_command(f"api workspaces/{workspace_id}/eventstreams/{heartbeat_id}/sources/{heartbeat_conn_id}/connection" , capture_output = True, silently_continue= True))
+report_topology = json.loads(run_fab_command(f"api workspaces/{workspace_id}/eventstreams/{report_id}/sources/{report_conn_id}/connection" , capture_output = True, silently_continue= True))
+
+heartbeat_ehNamespace = heartbeat_topology.get("text",{}).get('fullyQualifiedNamespace')
+report_ehNamespace = report_topology.get("text",{}).get('fullyQualifiedNamespace')
+
+heartbeat_ehName = heartbeat_topology.get("text",{}).get('eventHubName')
+report_ehName = report_topology.get("text",{}).get('eventHubName')
 
 GatewayLogUploadConfig = {
     "GatewayId": "",
@@ -242,20 +248,23 @@ GatewayLogUploadConfig = {
     "ReportRetention": ReportRetention,
     "VerboseLogSendInterval": 600,
     "ServicePrincipal": {
-        "TennatId": TenatId,
+        "TenantId": TenatId,
         "AppId": AppId,
         "SecretText": "",
     },
     "EventHubs": {
         "UploadReports": True,
+        "UseSPN": True,
         "ConnectionStrings": [
                 {
                         "Report": "Heartbeat",
-                        "EventHubConnectionString": heartbeat_connection
+                        "EventHubNamespace": heartbeat_ehNamespace,
+                        "EventHubName": heartbeat_ehName
                 },
                 {
                         "Report": "Reports",
-                        "EventHubConnectionString": report_connection
+                        "EventHubNamespace": report_ehNamespace,
+                        "EventHubName": report_ehName
                 }
         ]
     },
