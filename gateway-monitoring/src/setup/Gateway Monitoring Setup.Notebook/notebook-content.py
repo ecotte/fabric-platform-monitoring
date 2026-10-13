@@ -139,7 +139,7 @@ HeartbeatEnable = True
 HeartbeatInterval = 1
 ReportSendInterval = 5
 ReportRetention = 10
-TenatId = ""
+TenantId = ""
 AppId = ""
 
 # METADATA ********************
@@ -248,7 +248,7 @@ GatewayLogUploadConfig = {
     "ReportRetention": ReportRetention,
     "VerboseLogSendInterval": 600,
     "ServicePrincipal": {
-        "TenantId": TenatId,
+        "TenantId": TenantId,
         "AppId": AppId,
         "SecretText": "",
     },
